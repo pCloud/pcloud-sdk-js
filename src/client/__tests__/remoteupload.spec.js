@@ -19,7 +19,7 @@ one((method) => method === 'uploadprogress', success(mockUploadprogress), progre
 describe('remoteupload', () => {
   it('downloads file', async () => {
     //const response = await remoteupload('https://hostname/file.ext', 0);
-    const response = await remoteupload('http://zhm.ludost.net/a.jpg', 0, {
+    const response = await remoteupload('http://host/file.ext', 0, {
       onProgress: (progress) => {
         expect(progress).toEqual({
           all: { downloaded: 150, size: 200 },

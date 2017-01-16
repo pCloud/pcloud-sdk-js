@@ -10,7 +10,7 @@ describe("upload trough api", () => {
       server.close();
     }).listen(4545, async function() {
       const result = await ApiMethod("uploadfile", {
-        params: { auth: "4ko1eVZkZF8R9TmKL0U4ff96S0Gyan4lzr7qk", folderid: 0 },
+        params: { auth: "auth_token", folderid: 0 },
         httpMethod: "post",
         apiServer: "127.0.0.1:4545",
         apiProtocol: "http",
