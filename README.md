@@ -8,7 +8,7 @@
 
 ## Examples
 
-Create reusable `client` object using and **oAuth 2** token:
+Create reusable `client` object using and **oAuth** token:
 ```js
 const client = pcloudSdk.createClient('access_token');
 ```
@@ -28,7 +28,7 @@ document.getElementById('inputfile').addEventListener('change', function() {
       console.log('started');
     },
     onProgress: function(progress) {
-      // ..
+      console.log(progress.loaded, progress.total);
     },
     onFinish: function(fileMetadata) {
       console.log('finished', fileMetadata);
@@ -41,13 +41,19 @@ document.getElementById('inputfile').addEventListener('change', function() {
 
 ## Getting started
 Install with npm:
+
 ```
-npm install pcloud-sdk-js
+npm install --save pcloud-sdk-js
 ```
 Or load the prebuilt file.
+
 ```
-<script type="text/javascript" src="https://www.jsdelivr.com/pcloudsdk.js"></script>
+<script type="text/javascript" src="https://unpkg.com/pcloud-sdk-js@1.0.0/dist/pcloudsdk.js"></script>
 ```
 
-## Documentation
-Full documentation, guides and examples are available at our [SDK site](https://www.pcloud.com)
+The SDK is exported as a `pCloudSdk` global.
+
+## Docs
+- For more information you can view [the documentation](/docs), [the examples](/examples) and the [API Reference](/docs/API.md).
+- For more information about the pCloud's API go to https://docs.pcloud.com.
+- SDKs for other platforms you can find at our [SDK site](https://pcloud.github.io).
