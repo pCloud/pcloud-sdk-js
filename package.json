@@ -4,16 +4,17 @@
   "description": "pCloud's Javascript SDK",
   "main": "lib/index.js",
   "browser": {
-    "./lib/index.js": "./lib/browser.js",
     "./lib/client/methods/download.js": "./lib/client/methods/browser/download.js",
     "./lib/client/methods/upload.js": "./lib/client/methods/browser/upload.js",
     "./lib/client/methods/downloadfile.js": "./lib/client/methods/browser/downloadfile.js",
     "./lib/utils/node-utils.js": "./lib/utils/browser/node-utils.js",
+    "./lib/env/index.js": "./lib/env/browser.js",
 
-    "./src/env/index.js": "./src/env/browser.js",
     "./src/client/methods/download.js": "./src/client/methods/browser/download.js",
     "./src/client/methods/upload.js": "./src/client/methods/browser/upload.js",
-    "./src/client/methods/downloadfile.js": "./src/client/methods/browser/downloadfile.js"
+    "./src/client/methods/downloadfile.js": "./src/client/methods/browser/downloadfile.js",
+    "./src/env/index.js": "./src/env/browser.js",
+    "./src/utils/httpProgressMiddleware.js": "./src/utils/browser/httpProgressMiddleware.js"
   },
   "scripts": {
     "clean-web": "./node_modules/.bin/rimraf dist",

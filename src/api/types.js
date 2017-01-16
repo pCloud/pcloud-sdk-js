@@ -1,6 +1,6 @@
 /* @flow */
 
-import type {ReadStream, WriteStream} from "fs";
+import type { WriteStream } from "fs";
 
 export type dataType = "text" | "json" | "blob";
 export type httpMethod = "get" | "post";
@@ -19,10 +19,8 @@ export type ApiRequestOptions = {
   onProgress?: (T: ProgressEvent) => void,
   xhr?: (xhr: XMLHttpRequest) => void,
   pipe?: WriteStream,
-  pipeFrom?: ReadStream,
   params?: {},
   files?: Array<UploadFile>,
-  data?: Object
 };
 
 export type ApiMethodOptions = ApiRequestOptions &

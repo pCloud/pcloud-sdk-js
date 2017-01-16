@@ -1,6 +1,6 @@
-## pCloudSdk.api
+## pCloudSdk Api Methods
 
-#### request(url, options)
+#### ApiRequest(url, options)
 
 Generic highly configurable method for accessing the pCloud api. Can be used to access the REST API and for upload/download. **Isomorphic**.
 
@@ -15,17 +15,20 @@ request(
 type ApiRequestOptions = {
   method?: 'get' | 'post',
   responseType?: 'text' | 'json' | 'blob',
+
+  // Progress Callback that can be used for upload/download/text process
   onProgress?: (T: ProgressEvent) => void,
 
-  // browser only
+  // browser only, passes the XHR object to you in case you want to work with it
   xhr?: (xhr: XMLHttpRequest) => void,
 
-  // nodejs only
+  // nodejs only, pipe the result to a WriteStream (ie: download file)
   pipe?: WriteStream,
-  pipeFrom?: ReadStream,
 
   // get params
   params?: {},
+
+  // files to upload
   files?: Array<UploadFile>,
 
   // post data
@@ -34,9 +37,15 @@ type ApiRequestOptions = {
   apiServer?: string,
   apiProtocol?: string
 }
+
+type UploadFile = {
+  name: string,
+  file: string | File
+};
+
 ```
 
-#### method(method, options)
+#### ApiMethod(method, options)
 
 Wrapper over the request method. Has knowledge of the **API Method** called and whether the operation is successful or not.
 
