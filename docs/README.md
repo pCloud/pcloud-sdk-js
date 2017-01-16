@@ -1,7 +1,7 @@
 # Table of contents
 
 - [NPM Package](https://www.npmjs.com/package/pcloud-sdk-js)
-- [About pCloud](aboutpcloud.md)
+- [About pCloud](about.md)
 - Getting Started
     - [Install](install.md)
     - [OAuth guide](oauth.md)
@@ -11,6 +11,6 @@
       - `ApiRequest`
       - `ApiMethod`
   - [`createClient`](createclient.md)
-      - [`client`](createClient.md#client)
-      - [`api`](createClient.md#api)
-      - [Higher order methods](createClient.md#higherordermethods)
+      - [`client`](createclient.md#client)
+      - [`api`](createclient.md#api)
+      - [Higher order methods](createclient.md#higherordermethods)
