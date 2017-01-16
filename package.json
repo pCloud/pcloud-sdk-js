@@ -1,6 +1,6 @@
 {
   "name": "pcloud-sdk-js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "pCloud's Javascript SDK",
   "main": "lib/index.js",
   "browser": {
@@ -9,7 +9,6 @@
     "./lib/client/methods/downloadfile.js": "./lib/client/methods/browser/downloadfile.js",
     "./lib/utils/node-utils.js": "./lib/utils/browser/node-utils.js",
     "./lib/env/index.js": "./lib/env/browser.js",
-
     "./src/client/methods/download.js": "./src/client/methods/browser/download.js",
     "./src/client/methods/upload.js": "./src/client/methods/browser/upload.js",
     "./src/client/methods/downloadfile.js": "./src/client/methods/browser/downloadfile.js",
