@@ -1,0 +1,52 @@
+<html>
+<head>
+  <title>pCloud SDK: Examples / List folder</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+    }
+    input {
+      height: 28px;
+      line-height: 28px;
+      padding: 0 0 0 4px;
+    }
+    input, button {
+      margin: 0 0 10px 0;
+    }
+    .result {
+      width: 300px;
+      height: 50px;
+    }
+  </style>
+</head>
+<body>
+
+  <div>
+    <input type="text" name="username" placeholder="Email" id="email" value="no1knowsme@gmail.com"><br>
+    <input type="password" name="password" placeholder="Password" id="password" value="parola"><br>
+    <button id="login">Login</button>
+
+    <div class="result"></div>
+  </div>
+
+  <script type="text/javascript" src="examples/pcloudsdk.js"></script>
+  <script>
+    'use strict';
+    var client = false;
+    el("login").addEventListener('click', function(e) {
+      var email = el('email').value;
+      var password = el('password').value;
+      if (email && password) {
+        client = pCloudSdk.createClient(null, 'pcloud');
+        client.login(email, password).then(console.log.bind(console));
+      }
+    }, false);
+
+    function el(id) {
+      return document.getElementById(id);
+    }
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+[ignore]
+<PROJECT_ROOT>/node_modules/.*
+<PROJECT_ROOT>/flow-coverage
+
+[include]
+./node_modules/url
+./node_modules/deep-assign
+
+[libs]
+./node_modules/fbjs/flow/lib
+./flow
+
+[options]

@@ -1,0 +1,3 @@
+/* @flow */
+
+global.ENV = 'web';

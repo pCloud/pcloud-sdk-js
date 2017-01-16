@@ -1,0 +1,10 @@
+{
+  "presets": ["es2015", "stage-3"],
+  "plugins": [
+    "transform-async-generator-functions",
+    "transform-flow-strip-types",
+    "transform-object-rest-spread",
+    "transform-es2015-destructuring",
+    "transform-es2015-parameters"
+  ]
+}

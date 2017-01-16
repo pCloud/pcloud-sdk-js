@@ -1,0 +1,88 @@
+<html>
+<head>
+  <title>pCloud SDK: Examples / Download</title>
+
+  <style>
+    #gettoken {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+    }
+
+    #files {
+      font-size: 13px;
+      font-family: arial;
+      line-height: 17px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="files"></div>
+  <button id="gettoken">Get Token</button>
+
+  <script src="https://code.jquery.com/jquery-3.0.0.slim.min.js"></script>
+  <script type="text/javascript" src="/examples/pcloudsdk.js"></script>
+  <script>
+    'use strict';
+    var access_token = false;
+    var client = false;
+
+    function downloadfile(fileid) {
+      client.downloadfile(1780805874, {
+        onBegin: function() {
+          console.log('Upload started.');
+        },
+        onProgress: function(progress) {
+          console.log(progress);
+        },
+        onFinish: function(uploadData) {
+          console.log(uploadData);
+        }
+      });
+    }
+
+    function listfiles() {
+      var place = $('#files');
+      client.listfolder(0).then(function(metadata) {
+        metadata.contents.forEach(function(item, n) {
+          if (!item.isfolder) {
+            place.append(
+              $('<div />')
+                .append($('<span />').text(item.name))
+                .append(' | ')
+                .append(
+                  $('<a href="javascript:;">Download</a>')
+                    .on('click', function(e) {
+                      console.log('downloading', item.fileid);
+                      downloadfile(item.fileid);
+                    })
+                )
+            );
+          }
+        });
+      });
+    }
+
+
+    function el(id) {
+      return document.getElementById(id);
+    }
+
+    el('gettoken').addEventListener('click', function(e) {
+      pCloudSdk.oauth.initOauthToken({
+        client_id: 'p1WznE2dEPm',
+        redirect_uri: 'http://127.0.0.1:8080/oauth.html',
+        receiveToken: function(token) {
+          console.log(token);
+          access_token = token;
+          client = pCloudSdk.createClient(token);
+
+          listfiles();
+        }
+      });
+    }, false);
+
+  </script>
+</body>
+</html>

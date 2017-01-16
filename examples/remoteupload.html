@@ -1,0 +1,70 @@
+<html>
+<head>
+  <title>pCloud SDK: Examples / Remote Upload</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+    }
+    #gettoken {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+    }
+    textarea {
+      width: 400px;
+      height: 50px;
+    }
+  </style>
+</head>
+<body>
+
+  <button id="gettoken">Get Token</button>
+
+  <textarea id="urls">http://zhm.ludost.net/mulder.jpg</textarea><br /><br />
+  <input type="button" value="Remote Upload" id="file" disabled="disabled" />
+
+  <script type="text/javascript" src="/examples/pcloudsdk.js"></script>
+  <script>
+    'use strict';
+    var access_token = false;
+    var client = false;
+    el("file").addEventListener('click', function(e) {
+      if (!client) {
+        console.error('no token, click the button to get token.');
+        return;
+      }
+
+      client.remoteupload(el('urls').value, 0, {
+        onBegin: function() {
+          console.log('Upload started.');
+        },
+        onProgress: function(progress) {
+          console.log(progress);
+        },
+        onFinish: function(uploadData) {
+          console.log(uploadData);
+        }
+      });
+    }, false);
+
+    function el(id) {
+      return document.getElementById(id);
+    }
+
+    el('gettoken').addEventListener('click', function(e) {
+      pCloudSdk.oauth.initOauthToken({
+        client_id: 'p1WznE2dEPm',
+        redirect_uri: 'http://127.0.0.1:8080/oauth.html',
+        receiveToken: function(token) {
+          console.log(token);
+          access_token = token;
+          client = pCloudSdk.createClient(token);
+          el('file').disabled = false;
+        }
+      });
+    }, false);
+
+  </script>
+</body>
+</html>

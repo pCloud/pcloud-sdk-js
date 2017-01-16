@@ -1,0 +1,6 @@
+__tests__
+.git
+.vscode
+build
+flow-typed
+src
