@@ -5,12 +5,12 @@
 - Getting Started
     - [Install](install.md)
     - [OAuth guide](oauth.md)
-  - API Reference
-    - [`oauth`](api-oauth.md)
-    - [Api](api.md)
-        - `ApiRequest`
-        - `ApiMethod`
-    - [`createClient`](createclient.md)
-        - [`client`](createClient.md#client)
-        - [`api`](createClient.md#api)
-        - [Higher order methods](createClient.md#higherordermethods)
+- API Reference
+  - [`oauth`](api-oauth.md)
+  - [Api](api.md)
+      - `ApiRequest`
+      - `ApiMethod`
+  - [`createClient`](createclient.md)
+      - [`client`](createClient.md#client)
+      - [`api`](createClient.md#api)
+      - [Higher order methods](createClient.md#higherordermethods)
