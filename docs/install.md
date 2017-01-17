@@ -3,7 +3,7 @@
 You can install the SDK using npm.
 
 ``` bash
-npm install pcloud-sdk-js
+npm install --save pcloud-sdk-js
 ```
 
 Then in your code:
