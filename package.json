@@ -1,6 +1,6 @@
 {
   "name": "pcloud-sdk-js",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "pCloud's Javascript SDK",
   "main": "lib/index.js",
   "browser": {
