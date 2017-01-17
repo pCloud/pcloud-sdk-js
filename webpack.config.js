@@ -1,5 +1,4 @@
 const webpack = require("webpack");
-const isProduction = process.argv.includes("-p");
 
 module.exports = {
   entry: "./src/index.js",
@@ -20,8 +19,7 @@ module.exports = {
     new webpack.optimize.UglifyJsPlugin(),
     new webpack.optimize.DedupePlugin(),
     new webpack.DefinePlugin({
-      ENV: JSON.stringify("web"),
-      "process.env.NODE_ENV": isProduction ? '"production"' : '"development"'
+      ENV: JSON.stringify("web")
     })
   ]
 };
