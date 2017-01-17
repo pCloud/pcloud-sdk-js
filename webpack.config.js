@@ -1,27 +1,27 @@
-const webpack = require('webpack');
+const webpack = require("webpack");
+const isProduction = process.argv.includes("-p");
 
 module.exports = {
-  entry: './src/index.js',
+  entry: "./src/index.js",
   output: {
-    path: __dirname + '/dist/',
-    filename: 'pcloudsdk.js',
-    library: 'pCloudSdk',
-    libraryTarget: 'umd',
+    path: __dirname + "/dist/",
+    filename: "pcloudsdk.js",
+    library: "pCloudSdk",
+    libraryTarget: "umd",
     umdNamedDefine: true
   },
-  devtool: 'source-map',
-	module: {
-    preLoaders: [{ test: /\.js$/, loader: "source-map-loader" }],
-		loaders: [{ test: /\.js$/, loader: 'babel-loader' }]
-	},
-  resolve: {
-    packageAlias: "browser"
+  devtool: "source-map",
+  module: {
+    preLoaders: [ { test: /\.js$/, loader: "source-map-loader" } ],
+    loaders: [ { test: /\.js$/, loader: "babel-loader" } ]
   },
+  resolve: { packageAlias: "browser" },
   plugins: [
     new webpack.optimize.UglifyJsPlugin(),
     new webpack.optimize.DedupePlugin(),
     new webpack.DefinePlugin({
-      ENV: JSON.stringify('web')
+      ENV: JSON.stringify("web"),
+      "process.env.NODE_ENV": isProduction ? '"production"' : '"development"'
     })
   ]
 };

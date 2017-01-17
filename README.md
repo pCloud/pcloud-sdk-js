@@ -55,5 +55,5 @@ The SDK is exported as a `pCloudSdk` global.
 
 ## Docs
 - For more information you can view [the documentation](/docs), [the examples](/examples) and the [API Reference](/docs/API.md).
-- For more information about the pCloud's API go to https://docs.pcloud.com.
+- To learn more about the pCloud's API go to https://docs.pcloud.com.
 - SDKs for other platforms you can find at our [SDK site](https://pcloud.github.io).

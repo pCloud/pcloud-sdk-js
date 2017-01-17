@@ -70,7 +70,7 @@ export default function createClient(
     token = newToken;
   }
 
-  // client supplied to methods and end users
+  // client api for end users
   let client: any = { api, setupProxy };
 
   let pcloudMethod;
