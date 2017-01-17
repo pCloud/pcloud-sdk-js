@@ -6,4 +6,3 @@ coverage
 lib
 dist
 npm-debug.log
-/examples/node/app.json

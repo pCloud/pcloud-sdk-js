@@ -1,6 +1,6 @@
 const pcloud = require('../../lib');
-const app = require('./app.json');
 const invariant = require('invariant');
+const app = require('./app.json');
 
 invariant(app, 'Missing `app.json`.');
 invariant(app.access_token, 'Missing `access_token` in `app.json`. Run `node token.js`');
