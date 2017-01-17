@@ -22,5 +22,5 @@ client.listfolder(0)
 Alternatively you can use the prebuilt distributed version of the lib using a script tag:
 
 ```
-<script type="text/javascript" src="https://unpkg.com/pcloud-sdk-js@1.0.0/dist/pcloudsdk.js"></script>
+<script type="text/javascript" src="https://unpkg.com/pcloud-sdk-js@latest/dist/pcloudsdk.js"></script>
 ```

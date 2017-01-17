@@ -41,7 +41,7 @@ The proxy server will set internally. You can wait for the promise to resolve, i
 
 #### Higher order methods
 
-These are higher order wrapers over `client.api`. All are `then`-able allowing for easy composition.
+These are higher order wrappers over `client.api`. All are `then`-able allowing for easy composition.
 
 ```js
 createfolder(name: string, parentfolderid: number = 0): Promise<metadata>

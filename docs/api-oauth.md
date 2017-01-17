@@ -32,4 +32,4 @@ getTokenFromCode(
 ): Promise<{ userid, access_token }>
 ```
 
-- `code` is received from the user. For exmaple usage checkout the [oauth example](examples/node/token.js).
+- `code` is received from the user. For example usage checkout the [oauth example](examples/node/token.js).
