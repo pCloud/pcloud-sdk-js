@@ -79,11 +79,11 @@ getfilelink(fileid: number): Promise<string> // url to download the file
 ```
 
 ``` js
-listfolder(folderid: number): Promise<Folder>
+listfolder(folderid: number): Promise<metadata>
 ```
 
 ``` js
-remoteupload(url: string, folderid: number, options: UploadOptions): Promise<File>
+remoteupload(url: string, folderid: number, options: UploadOptions): Promise<metadata>
 
 type UploadOptions = {
   onBegin?: () => void,
@@ -110,7 +110,7 @@ renamefolder(name: string, parentfolderid: number)
 ```
 
 ``` js
-upload(file: string | File, folderid: number, options: UploadOptions):Promise<Fle>
+upload(file: string | File, folderid: number, options: UploadOptions):Promise<metadata>
 
 type UploadOptions = {
   onBegin?: () => void,

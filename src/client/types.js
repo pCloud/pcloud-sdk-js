@@ -4,20 +4,6 @@ import type { ApiMethodOptions } from "../api/types";
 
 export type Item = { name: string, isfolder: boolean, id: string };
 
-export type Folder = {
-  id: string,
-  name: string,
-  isfolder: true,
-  folderid: number
-};
-
-export type File = {
-  id: string,
-  name: string,
-  isfolder: boolean,
-  fileid: number
-};
-
 export type FileLocal = { name: string, path: string, size: number };
 
 export type ClientType = "oauth" | "pcloud";
