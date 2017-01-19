@@ -1,6 +1,7 @@
 # Examples
 
-In project root:
+To run the examples, clone this repository, then run:
+
 ```
 npm install
 npm run start

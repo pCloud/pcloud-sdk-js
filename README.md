@@ -1,12 +1,12 @@
-# [pCloud](https://www.pcloud.com/) JavaScript SDK
+## pCloud JavaScript SDK
 
-`pcloud-sdk-js` is a JavaScript library that lets you include **pCloud** functionality in your apps. It lets you use the full range of the [pCloud's API](https://docs.pcloud.com/) with some utility on the top.
+JavaScript library that lets you use **pCloud** functionality in your apps. Includes the full range of the [pCloud's API](https://docs.pcloud.com/) with some utility on top.
 
   * **Universal**/Isomorphic.
   * **Promise** based API.
   * Simplified OAuth process. Get started in minutes.
 
-## Usage
+### Usage
 
 ```js
 
@@ -40,7 +40,7 @@ document.getElementById('inputfile').addEventListener('change', function() {
 });
 ```
 
-## Install
+### Install
 Install with npm:
 
 ```
@@ -54,7 +54,7 @@ Or load the prebuilt file.
 
 The SDK is exported as a `pCloudSdk` global.
 
-## Docs
+### Read more
 - For more information you can view [the documentation](/docs), [the examples](/examples) and the [API Reference](/docs/API.md).
 - To learn more about the pCloud's API go to https://docs.pcloud.com.
 - SDKs for other platforms you can find at our [SDK site](https://pcloud.github.io).
