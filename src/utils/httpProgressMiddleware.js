@@ -11,7 +11,7 @@ export default function httpProgressMiddleware(req: any) {
     res.on("data", function(data) {
       loaded += data.length;
 
-      req.emit("progress", { loaded: loaded, total: total });
+      req.emit("progress", { direction: "download", loaded: loaded, total: total });
     });
   });
 }

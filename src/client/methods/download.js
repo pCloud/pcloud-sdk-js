@@ -1,6 +1,6 @@
 /* @flow */
 
-import apiRequest from "../../api/ApiRequest";
+import ApiRequest from "../../api/ApiRequest";
 import type { DownloadOptions } from "../../api/types";
 import type { FileLocal } from "../types";
 import fs from "fs";
@@ -16,7 +16,7 @@ export default () =>
       } = options;
 
       onBegin();
-      return apiRequest(url, {
+      return ApiRequest(url, {
         type: "arraybuffer",
         pipe: fs.createWriteStream(filename),
         onProgress: (progress) => {
