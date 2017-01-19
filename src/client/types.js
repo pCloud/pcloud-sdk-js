@@ -13,7 +13,7 @@ export type ClientApiMethodOptions =
   & { cache?: boolean, cacheTime?: number };
 
 export type ApiClient = {
-  api(method: string, params: ApiMethodOptions): Promise<any>,
+  api(method: string, options?: ApiMethodOptions): Promise<any>,
   getfilelink(): Promise<string>,
   download(): void
 };

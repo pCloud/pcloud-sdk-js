@@ -120,3 +120,7 @@ type UploadOptions = {
 
 type ProgressEvent = { loaded: number, total: number };
 ```
+
+``` js
+userinfo(): Promise<userinfo>
+```

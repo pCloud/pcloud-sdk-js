@@ -41,7 +41,7 @@ export default function createClient(
 
   function api(
     method: string,
-    options: ClientApiMethodOptions = {}
+    options?: ClientApiMethodOptions = {}
   ): Promise<ApiResult> {
     let mergeOptions = deepAssign({}, initialOptions(method), options);
 

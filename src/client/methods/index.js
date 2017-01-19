@@ -15,3 +15,4 @@ export { default as remoteupload } from './remoteupload';
 export { default as renamefile } from './renamefile';
 export { default as renamefolder } from './renamefolder';
 export { default as upload } from './upload';
+export { default as userinfo } from './userinfo';
