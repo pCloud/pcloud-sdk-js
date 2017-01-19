@@ -37,7 +37,7 @@
   },
   "engineStrict": true,
   "engines": {
-    "node": ">= 6.2.0"
+    "node": ">= 4.0.0"
   },
   "dependencies": {
     "deep-assign": "^2.0.0",
