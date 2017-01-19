@@ -8,7 +8,11 @@ export type httpData = {} | FormData | Blob;
 
 export type ApiResult = { result: number };
 export type ApiError = { result: number, error: string };
-export type ProgressEvent = { loaded: number, total: number };
+export type ProgressEvent = {
+  direction: "upload" | "download",
+  loaded: number,
+  total: number
+};
 
 type UploadFile = { name: string, file: string | File };
 
@@ -20,11 +24,12 @@ export type ApiRequestOptions = {
   xhr?: (xhr: XMLHttpRequest) => void,
   pipe?: WriteStream,
   params?: {},
-  files?: Array<UploadFile>,
+  files?: Array<UploadFile>
 };
 
-export type ApiMethodOptions = ApiRequestOptions &
-  { apiServer?: string, apiProtocol?: string };
+export type ApiMethodOptions =
+  & ApiRequestOptions
+  & { apiServer?: string, apiProtocol?: string };
 
 export type RemoteUploadProgressFile = {
   url: string,
@@ -51,7 +56,5 @@ export type DownloadOptions = {
 };
 
 export type DownloadData = { path: string, expires: string, hosts: [string] };
-
 export type ApiCall = { method: string, options: ApiMethodOptions };
-
 export type ApiRequest = { url: string, options: ApiRequestOptions };

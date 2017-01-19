@@ -19,7 +19,11 @@ export default () =>
       return apiRequest(url, {
         type: "arraybuffer",
         pipe: fs.createWriteStream(filename),
-        onProgress: onProgress
+        onProgress: (progress) => {
+          if (progress.direction === "download") {
+            onProgress(progress);
+          }
+        }
       }).then(() => {
         const file: FileLocal = {
           path: filename,

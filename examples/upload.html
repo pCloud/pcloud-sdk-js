@@ -36,7 +36,7 @@
           console.log('Upload started.');
         },
         onProgress: function(progress) {
-          console.log(progress.loaded, progress.total);
+          console.log(progress.direction, progress.loaded, progress.total);
         },
         onFinish: function(uploadData) {
           console.log(uploadData);

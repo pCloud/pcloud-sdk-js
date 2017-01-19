@@ -19,17 +19,19 @@ export default ({ client }: MethodApi) =>
     } = options;
 
     onBegin();
-    return client
-      .api("uploadfile", {
-        method: "post",
-        params: { folderid: folderid, nopartial: 1 },
-        files: [ { file: file, name: file.name } ],
-        onProgress: progress => onProgress(progress)
-      })
-      .then(({ metadata, checksums }) => {
-        const response = { metadata: metadata[0], checksums: checksums[0] };
+    return client.api("uploadfile", {
+      method: "post",
+      params: { folderid: folderid, nopartial: 1 },
+      files: [ { file: file, name: file.name } ],
+      onProgress: progress => {
+        if (progress.direction === "upload") {
+          onProgress(progress);
+        }
+      }
+    }).then(({ metadata, checksums }) => {
+      const response = { metadata: metadata[0], checksums: checksums[0] };
 
-        onFinish(response);
-        return response;
-      });
+      onFinish(response);
+      return response;
+    });
   };

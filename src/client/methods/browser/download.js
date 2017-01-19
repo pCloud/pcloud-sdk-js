@@ -15,7 +15,11 @@ export default () =>
       onBegin();
       return apiRequest(url, {
         type: 'arraybuffer',
-        onProgress: onProgress
+        onProgress: (progress) => {
+          if (progress.direction === 'download') {
+            onProgress(progress);
+          }
+        }
       }).then((data) => {
         onFinish(data);
         return data;

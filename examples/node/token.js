@@ -1,9 +1,20 @@
 var prompt = require('prompt');
-//var request = require('superagent');
-var app = require('./app.json');
 var fs = require('fs');
 var url = require('url');
 var oauth = require('../../lib').oauth;
+
+if (!appExists()) {
+  resetAppJson();
+}
+
+var app = require('./app.json');
+
+if (!app.client_id || !app.client_id.length ||
+  !app.app_secret || !app.app_secret.length
+) {
+  console.error("Required `client_id` and `app_secret` from `app.json`.");
+  return;
+}
 
 const oauthUrl = url.format({
   protocol: 'https',
@@ -46,4 +57,15 @@ function go() {
       go();
     }
   });
+}
+
+function appExists() {
+  return require("fs").existsSync("./app.json");
+}
+
+function resetAppJson() {
+  fs.writeFileSync('./app.json', JSON.stringify({
+    "client_id": "",
+    "app_secret":""
+  }));
 }

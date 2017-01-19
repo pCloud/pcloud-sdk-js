@@ -1,16 +1,17 @@
 /* @flow */
 
-import invariant from 'invariant';
-import type { UploadOptions } from '../../api/types';
-import type { MethodApi } from '../types';
-//import { ApiError } from '../../api/utils';
+import invariant from "invariant";
+import type { UploadOptions } from "../../api/types";
+import type { MethodApi } from "../types";
 
 export default ({ client }: MethodApi) =>
   (file: string, folderid: number = 0, options: UploadOptions = {}) => {
-
-    invariant(file, '`file` is required.');
-    invariant(typeof file === 'string', '`file` must be supplied');
-    invariant(require('fs').existsSync(file), `File: ${file} is not accessible.`);
+    invariant(file, "`file` is required.");
+    invariant(typeof file === "string", "`file` must be supplied");
+    invariant(
+      require("fs").existsSync(file),
+      `File: ${file} is not accessible.`
+    );
 
     const {
       onBegin = () => {},
@@ -19,15 +20,18 @@ export default ({ client }: MethodApi) =>
     } = options;
 
     onBegin();
-    return client.api('uploadfile', {
-        method: 'post',
-        params: {
-          folderid: folderid,
-          nopartial: 1
-        },
-        files: [{ file: file, name: file.split('/').pop() }],
-        onProgress: (progress) => onProgress(progress),
-      }).then(response => {
+    return client
+      .api("uploadfile", {
+        method: "post",
+        params: { folderid: folderid, nopartial: 1 },
+        files: [ { file: file, name: file.split("/").pop() } ],
+        onProgress: progress => {
+          if (progress.direction === 'upload') {
+            onProgress(progress);
+          }
+        }
+      })
+      .then(response => {
         const ret = apiResponseToReturn(response);
 
         onFinish(ret);
@@ -36,8 +40,5 @@ export default ({ client }: MethodApi) =>
   };
 
 function apiResponseToReturn({ metadata, checksums }) {
-  return {
-    metadata: metadata[0],
-    checksums: checksums[0]
-  };
+  return { metadata: metadata[0], checksums: checksums[0] };
 }

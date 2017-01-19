@@ -43,6 +43,12 @@ type UploadFile = {
   file: string | File
 };
 
+type ProgressEvent = {
+  direction: 'upload' | 'download'
+  loaded: number,
+  total: number
+};
+
 ```
 
 ### ApiMethod(method, options)
