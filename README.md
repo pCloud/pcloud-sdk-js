@@ -4,7 +4,7 @@ JavaScript library that lets you use **pCloud** functionality in your apps. Incl
 
   * **Universal**/Isomorphic.
   * **Promise** based API.
-  * Simplified OAuth process. Get started in minutes.
+  * Simplified [OAuth](/docs/oauth.md) process. Get started in minutes.
 
 ### Usage
 
