@@ -2,7 +2,7 @@
 
 import invariant from "invariant";
 import type { MethodApi, thumbTypes, thumbSizes, thumbB64 } from "../types";
-import createParser from '../../utils/thumbs';
+import createParser from "../../utils/thumbs";
 
 export default ({ client }: MethodApi) => (
   fileids: Array<number>,
@@ -10,7 +10,13 @@ export default ({ client }: MethodApi) => (
   size: thumbSizes = "32x32",
   receiveThumb: (thumbB64) => void = () => {}
 ): Promise<Array<thumbB64>> => {
-  invariant(typeof fileids.length, "`fileids` is required.");
+  invariant(
+    typeof fileids === "object" && "length" in fileids && fileids.length,
+    '`fileids` is required, must be array of numbers.'
+  );
+  invariant(['auto', 'png', 'jpg'].indexOf(thumbType) !== 1, 'thumbType must be one of: "auto", "png", "jpg".');
+  invariant(['32x32', '120x120'].indexOf(size) !== 1, 'size must be one of: "32x32", "120x120".');
+  invariant(typeof receiveThumb === 'function', "`receiveThumb` must be a function.");
 
   let thumbs = [];
   const parser = createParser();
@@ -19,7 +25,7 @@ export default ({ client }: MethodApi) => (
     .api("getthumbs", {
       responseType: "text",
       params: {
-        fileids: fileids,
+        fileids: fileids.join(","),
         type: thumbType,
         size: size,
         crop: 1

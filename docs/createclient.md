@@ -78,6 +78,18 @@ type ProgressEvent = { loaded: number, total: number };
 getfilelink(fileid: number): Promise<string> // url to download the file
 ```
 
+```js
+getthumbs(
+  fileids: Array<number>,
+  'jpg' | 'png' | 'auto',
+  '32x32' | '120x120',
+  function receiveThumb(thumb: { url: string, fileid: number }) {
+    // function that receives thumbs one by one, when they arrive.
+    // some thumbs may arrive much earlier than others.
+  }
+): Promise<Array<thumbs>>
+```
+
 ``` js
 listfolder(folderid: number): Promise<metadata>
 ```

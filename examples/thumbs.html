@@ -110,7 +110,7 @@
           imagesInFolder(0).then(a => console.log('Items', a));
 
           imagesInFolder(0).then(fileids => {
-            client.getthumbs(fileids.join(','), 'auto', '32x32', (thumb) => console.log('got thumb', thumb))
+            client.getthumbs(fileids, 'auto', '32x32', (thumb) => console.log('got thumb', thumb))
               .then(stuff => console.log('==', stuff))
           });
 

@@ -31,7 +31,7 @@ describe('getthumbs', () => {
     expect(apiMethod.mock.calls[0][1].params).toEqual({
       access_token: "testauth",
       crop: 1,
-      fileids: [1, 2],
+      fileids: "1,2",
       size: "32x32",
       type: "auto"
     });
