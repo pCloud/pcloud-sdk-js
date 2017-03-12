@@ -70,8 +70,12 @@ export function one(match: matchFunc, respond: respondFunc, onFire: onFire) {
   handlers.push(me);
 }
 
+export function text(data: string) {
+  return (method: string) => Promise.resolve(data);
+}
+
 export function success(data: any) {
-  return (method: string)  => {
+  return (method: string) => {
     data.result = 0;
 
     return Promise.resolve(data);

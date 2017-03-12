@@ -6,6 +6,7 @@ export { default as download } from './download';
 export { default as downloadfile } from './downloadfile';
 export { default as deletefolder } from './deletefolder';
 export { default as getfilelink } from './getfilelink';
+export { default as getthumbs } from './getthumbs';
 export { default as listfolder } from './listfolder';
 export { default as login } from './login';
 export { default as movefile } from './movefile';

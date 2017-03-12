@@ -25,3 +25,10 @@ export type MethodApi = {
 };
 
 export type ClientMethod = (T: MethodApi) => () => Promise<*>;
+
+export type thumbTypes = 'jpg' | 'png' | 'auto';
+export type thumbSizes = '32x32' | '120x120';
+export type thumbB64 = {
+  url: string,
+  fileid: number,
+}
