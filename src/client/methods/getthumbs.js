@@ -6,9 +6,9 @@ import createParser from "../../utils/thumbs";
 
 export default ({ client }: MethodApi) => (
   fileids: Array<number>,
+  receiveThumb: (thumbB64) => void = () => {},
   thumbType: thumbTypes = "auto",
-  size: thumbSizes = "32x32",
-  receiveThumb: (thumbB64) => void = () => {}
+  size: thumbSizes = "32x32"
 ): Promise<Array<thumbB64>> => {
   invariant(
     typeof fileids === "object" && "length" in fileids && fileids.length,
