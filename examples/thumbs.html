@@ -85,7 +85,6 @@
       return Promise.resolve(ret);
     }
 
-
     function folderSize(folderid) {
       return client.listfolder(0).then(files).then(map(size)).then(sum);
     }
@@ -108,16 +107,10 @@
           client = pCloudSdk.createClient(token);
 
           imagesInFolder(0).then(a => console.log('Items', a));
-
           imagesInFolder(0).then(fileids => {
-            client.getthumbs(fileids, 'auto', '32x32', (thumb) => console.log('got thumb', thumb))
+            client.getthumbs(fileids, thumb => console.log(thumb), 'auto', '32x32', (thumb) => console.log('got thumb', thumb))
               .then(stuff => console.log('==', stuff))
           });
-
-          /*
-          folderSize(0).then(a => console.log('Size: ', a));
-          folderItems(0).then(a => console.log('Items: ', a));
-          */
         }
       });
     }, false);
