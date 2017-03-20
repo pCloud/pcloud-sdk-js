@@ -6,7 +6,7 @@ import createParser from "../../utils/thumbs";
 
 export default ({ client }: MethodApi) => (
   fileids: Array<number>,
-  receiveThumb: (thumbB64) => void = () => {},
+  receiveThumb: (thumbB64) => void,
   thumbType: thumbTypes = "auto",
   size: thumbSizes = "32x32"
 ): Promise<Array<thumbB64>> => {
@@ -16,6 +16,7 @@ export default ({ client }: MethodApi) => (
   );
   invariant(['auto', 'png', 'jpg'].indexOf(thumbType) !== 1, 'thumbType must be one of: "auto", "png", "jpg".');
   invariant(['32x32', '120x120'].indexOf(size) !== 1, 'size must be one of: "32x32", "120x120".');
+  invariant(receiveThumb, "`receiveThumb` is required.");
   invariant(typeof receiveThumb === 'function', "`receiveThumb` must be a function.");
 
   let thumbs = [];

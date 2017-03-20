@@ -17,7 +17,7 @@ const { getthumbs } = createClient('testauth', 'oauth', false);
 
 describe('getthumbs', () => {
   it('works correctly', async () => {
-    const response = await getthumbs([1, 2]);
+    const response = await getthumbs([1, 2], () => {});
 
     expect(getThumbsSpy).toHaveBeenCalledTimes(1);
 
