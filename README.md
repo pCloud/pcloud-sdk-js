@@ -4,7 +4,7 @@ JavaScript library that lets you use **pCloud** functionality in your apps. Incl
 
   * **Universal**/Isomorphic.
   * **Promise** based API.
-  * Simplified OAuth process. Get started in minutes.
+  * Simplified [OAuth](/docs/oauth.md) process. Get started in minutes.
 
 ### Usage
 
@@ -40,21 +40,19 @@ document.getElementById('inputfile').addEventListener('change', function() {
 });
 ```
 
-### Install
+### Getting started
 Install with npm:
 
 ```
 npm install --save pcloud-sdk-js
 ```
-Or load the prebuilt file.
+Or load the prebuilt file. The SDK is exported as a `pCloudSDK` global.
 
 ```
 <script type="text/javascript" src="https://unpkg.com/pcloud-sdk-js@latest/dist/pcloudsdk.js"></script>
 ```
 
-The SDK is exported as a `pCloudSdk` global.
-
 ### Read more
-- For more information you can view [the documentation](/docs), [the examples](/examples) and the [API Reference](/docs/API.md).
+- For more information you can view [the documentation](/docs), [the examples](/examples) and the [API Reference](/docs/api.md).
 - To learn more about the pCloud's API go to https://docs.pcloud.com.
 - SDKs for other platforms you can find at our [SDK site](https://pcloud.github.io).
