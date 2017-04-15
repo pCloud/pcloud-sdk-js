@@ -34,10 +34,12 @@ export default ({ client }: MethodApi) => (
       onProgress: (progress: any) => {
         const progressThumbs = parser(progress.currentTarget.responseText);
         thumbs = thumbs.concat(progressThumbs);
-        progressThumbs.map(receiveThumb);
+        progressThumbs.forEach(receiveThumb);
       }
     })
     .then(response => {
-      return thumbs.concat(parser(response));
+      const responseThumbs = parser(response);
+      responseThumbs.forEach(receiveThumb);
+      return thumbs.concat(responseThumbs);
     });
 };

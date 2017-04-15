@@ -78,7 +78,7 @@ type ProgressEvent = { loaded: number, total: number };
 getfilelink(fileid: number): Promise<string> // url to download the file
 ```
 
-**getthumbs** is a method useful for getting list of thumbs in a single HTTP request. Thumbs are received in base64 so wont need additional loading. On the server side the process is optimized so the thumbs that are gotten first will be send first without waiting for the others. The **receiveThumb** callback is invoked with each thumb when it is received without waiting for the whole result. This is highly effective for getting lists of thumbs for showing entire folders.
+**getthumbs** is a method useful for getting a list of thumbs in a single HTTP request. Thumbs are received in base64 and ready to be shown. On the server side the process is optimized so the thumbs that are gotten first will be sent without waiting for the others. The **receiveThumb** callback is invoked with each thumb when it is received without waiting for the whole result. This is effective for getting lists of thumbs for showing entire folders.
 
 ```js
 getthumbs(
