@@ -1,0 +1,106 @@
+<html>
+<head>
+  <title>pCloud SDK: Examples / List folder</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+    }
+    #gettoken {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <button id="gettoken">Get Token</button>
+
+  <script type="text/javascript" src="examples/pcloudsdk.js"></script>
+  <script>
+    'use strict';
+    var access_token = false;
+    var client = false;
+
+    function children(metadata) {
+      return Promise.resolve(metadata.contents);
+    }
+
+    function firstChild(metadata) {
+      return metadata.contents[0];
+    }
+
+    function files(metadata) {
+      return children(metadata).then(filter((f) => !f.isfolder));
+    }
+
+    function filter(f) {
+      return (iterable) => {
+        var ret = [];
+
+        for (var n in iterable) {
+          if (f(iterable[n])) {
+            ret.push(iterable[n]);
+          }
+        }
+
+        return ret;
+      }
+    }
+
+    function length(array) {
+      return Promise.resolve(array.length);
+    }
+
+    function map(f) {
+      return (array) => {
+        return Promise.resolve(array.map(f));
+      }
+    }
+
+    function size(metadata) {
+      return metadata.size;
+    }
+
+    function name(metadata) {
+      return metadata.name;
+    }
+
+    function el(id) {
+      return document.getElementById(id);
+    }
+
+    function flat(iterable) {
+      var ret = 0;
+      for (var n in iterable) {
+        ret += iterable[n];
+
+        console.log(iterable[n]);
+      }
+      return Promise.resolve(ret);
+    }
+
+    function firstFile(folderid) {
+      return client.listfolder(0).then(firstChild);
+    }
+
+    el('gettoken').addEventListener('click', function(e) {
+      pCloudSdk.oauth.initOauthToken({
+        client_id: 'p1WznE2dEPm',
+        redirect_uri: 'http://' + location.host + '/oauth.html',
+        receiveToken: function(token) {
+          console.log(token);
+          access_token = token;
+          client = pCloudSdk.createClient(token);
+
+          firstFile(0).then(file => {
+            client.renamefile(file.fileid, "Firefox 50.1.1.dmg");
+          });
+        }
+      });
+    }, false);
+
+  </script>
+</body>
+</html>
