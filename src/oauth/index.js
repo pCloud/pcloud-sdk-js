@@ -32,7 +32,7 @@ function initOauthToken(options: oAuthOptions) {
     query: {
       redirect_uri: redirect_uri,
       client_id: client_id,
-      response_type: "token"
+      response_type: oAuthOptions.response_type || "token"
     }
   });
 
