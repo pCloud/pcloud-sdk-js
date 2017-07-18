@@ -174,7 +174,8 @@ export const pCloudApiMethods: { [id: string]: pCloudApiMethod } = {
 	upload_write: { auth: true, type: "write" },
 	upload_save: { auth: true, type: "write" },
 	crypto_getroot: { auth: true, type: "read" },
-	crypto_getfolderskey: { auth: true, type: "read" }
+	crypto_getfolderskey: { auth: true, type: "read" },
+	stat: { auth: true, type: "read" }
 };
 
 export function isApiMethod(method: string): boolean {

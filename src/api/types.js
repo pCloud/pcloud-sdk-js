@@ -6,8 +6,10 @@ export type dataType = "text" | "json" | "blob";
 export type httpMethod = "get" | "post";
 export type httpData = {} | FormData | Blob;
 
-export type ApiResult = { result: number };
+export type ApiResult = { result: 0 };
 export type ApiError = { result: number, error: string };
+export type ApiResponse = ApiResult | ApiError;
+
 export type ProgressEvent = {
 	direction: "upload" | "download",
 	loaded: number,

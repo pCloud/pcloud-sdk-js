@@ -1,0 +1,1 @@
+exports[`appshare throws for wrong token type 1`] = `"This method supports only clients of type \`pcloud\`."`;
