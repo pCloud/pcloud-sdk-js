@@ -1,3 +1,3 @@
 export default function httpProgressMiddleware() {
-  return false;
+	return false;
 }

@@ -4,34 +4,28 @@ import invariant from "invariant";
 import type { UploadOptions } from "../../../api/types";
 import type { MethodApi } from "../../types";
 
-export default ({ client }: MethodApi) =>
-  (file: File, folderid: number = 0, options: UploadOptions = {}) => {
-    invariant(file, "`file` is required.");
-    invariant(
-      typeof file === "object",
-      "`file` of type File must be supplied."
-    );
+export default ({ client }: MethodApi) => (file: File, folderid: number = 0, options: UploadOptions = {}) => {
+	invariant(file, "`file` is required.");
+	invariant(typeof file === "object", "`file` of type File must be supplied.");
 
-    const {
-      onBegin = () => {},
-      onProgress = () => {},
-      onFinish = () => {}
-    } = options;
+	const { onBegin = () => {}, onProgress = () => {}, onFinish = () => {} } = options;
 
-    onBegin();
-    return client.api("uploadfile", {
-      method: "post",
-      params: { folderid: folderid, nopartial: 1 },
-      files: [ { file: file, name: file.name } ],
-      onProgress: progress => {
-        if (progress.direction === "upload") {
-          onProgress(progress);
-        }
-      }
-    }).then(({ metadata, checksums }) => {
-      const response = { metadata: metadata[0], checksums: checksums[0] };
+	onBegin();
+	return client
+		.api("uploadfile", {
+			method: "post",
+			params: { folderid: folderid, nopartial: 1 },
+			files: [{ file: file, name: file.name }],
+			onProgress: progress => {
+				if (progress.direction === "upload") {
+					onProgress(progress);
+				}
+			}
+		})
+		.then(({ metadata, checksums }) => {
+			const response = { metadata: metadata[0], checksums: checksums[0] };
 
-      onFinish(response);
-      return response;
-    });
-  };
+			onFinish(response);
+			return response;
+		});
+};

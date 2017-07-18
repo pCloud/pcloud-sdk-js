@@ -9,50 +9,48 @@ export const THUMB_LINEID = 2;
 export const THUMB_URL = 3;
 
 export default function createParser() {
-  let lastLinePos = 0;
-  let thumbs = [];
-  let nextLinePos;
-  //let currentLine;
+	let lastLinePos = 0;
+	let thumbs = [];
+	let nextLinePos;
+	//let currentLine;
 
-  return (text: string): Array<thumbB64> => {
-    let setThumbs = [];
+	return (text: string): Array<thumbB64> => {
+		let setThumbs = [];
 
-    while (1) {
-      nextLinePos = text.indexOf("\n", lastLinePos + 1);
+		while (1) {
+			nextLinePos = text.indexOf("\n", lastLinePos + 1);
 
-      if (nextLinePos === -1) {
-        break;
-      }
+			if (nextLinePos === -1) {
+				break;
+			}
 
-      let { result, size, url, fileid } = _thumbObj(
-        text.substr(lastLinePos, nextLinePos - lastLinePos)
-      );
-      lastLinePos = nextLinePos;
+			let { result, size, url, fileid } = _thumbObj(text.substr(lastLinePos, nextLinePos - lastLinePos));
+			lastLinePos = nextLinePos;
 
-      if (result === 6001) {
-        url = thumbs[parseInt(size, 10)].url;
-        result = 0;
-      }
+			if (result === 6001) {
+				url = thumbs[parseInt(size, 10)].url;
+				result = 0;
+			}
 
-      if (result === 0) {
-        const thumb = { url, fileid };
+			if (result === 0) {
+				const thumb = { url, fileid };
 
-        thumbs.push(thumb);
-        setThumbs.push(thumb);
-      }
-    }
+				thumbs.push(thumb);
+				setThumbs.push(thumb);
+			}
+		}
 
-    return setThumbs;
-  };
+		return setThumbs;
+	};
 }
 
 function _thumbObj(line: string) {
-  const obj = line.split("|");
+	const obj = line.split("|");
 
-  return {
-    result: parseInt(obj[THUMB_RESULT], 10),
-    url: THUMB_URL in obj ? obj[THUMB_URL].trim() : "",
-    fileid: parseInt(obj[THUMB_FILEID], 10),
-    size: obj[THUMB_SIZE]
-  };
+	return {
+		result: parseInt(obj[THUMB_RESULT], 10),
+		url: THUMB_URL in obj ? obj[THUMB_URL].trim() : "",
+		fileid: parseInt(obj[THUMB_FILEID], 10),
+		size: obj[THUMB_SIZE]
+	};
 }
