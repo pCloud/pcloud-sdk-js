@@ -4,16 +4,17 @@ import invariant from "invariant";
 import type { MethodApi } from "../types";
 import { isEmail } from "../../utils";
 
+const permissionsMap = { view: 0, edit: 7 };
+
 export default ({ client }: MethodApi) => (
 	folderid: number,
 	mail: string,
-	permissions: 0 | 7 = 0,
+	access: "view" | "edit" = "view",
 	message: ?string = null
 ): Promise<boolean> => {
 	invariant(typeof folderid === "number", "`folderid` must be number.");
 	invariant(folderid !== 0, "`folderid` cannot be 0.");
-	invariant(permissions === 0 || permissions === 7, "`permissions` can be either 0 (can read) or 7 (can edit).");
-	invariant(message === null || typeof message === "string", "`message` can be only string.");
+	invariant(["view", "edit"].indexOf(access) != -1, "`permissions` can be either `view` or `edit`.");
 
 	invariant(mail, "`mail` is required.");
 	invariant(typeof mail === "string", "`mail` is required.");
@@ -21,7 +22,7 @@ export default ({ client }: MethodApi) => (
 
 	let params = {};
 	params.folderid = folderid;
-	params.permissions = permissions;
+	params.permissions = permissionsMap[access];
 	params.mail = mail;
 
 	if (message) {

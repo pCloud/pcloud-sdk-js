@@ -14,9 +14,9 @@ one(
 import createClient from "../createClient";
 
 describe("appshare", () => {
-	it("sends correct data for appshare", async () => {
+	it("sends correct data for appshare with edit", async () => {
 		const { appshare } = createClient("testauth", "pcloud", false);
-		const response = await appshare(100, 1, "clientid");
+		const response = await appshare(100, 1, "clientid", "edit");
 
 		expect(shareSpy).toHaveBeenCalledTimes(1);
 		expect(response).toBe(true);
@@ -26,9 +26,19 @@ describe("appshare", () => {
 			auth: "testauth",
 			client_id: "clientid",
 			folderid: 100,
-			permissions: 0,
+			permissions: 7,
 			userid: 1
 		});
+
+		expect(apiMethod.mock.calls[0][1].params).toMatchSnapshot();
+	});
+
+	it("sends correct data for appshare with view", async () => {
+		const { appshare } = createClient("testauth", "pcloud", false);
+		const response = await appshare(100, 1, "clientid", "view");
+
+		expect(apiMethod.mock.calls[0][1].params).toMatchSnapshot();
+		expect(response).toMatchSnapshot();
 	});
 
 	it("throws for wrong token type", () => {
@@ -36,7 +46,7 @@ describe("appshare", () => {
 
 		expect(() => {
 			appshare(100, 1, "clientid");
-		}).toThrowErrorMatchingSnapshot();
+		}).toThrowError("type `pcloud`");
 	});
 
 	it("throws for wrong token type", () => {

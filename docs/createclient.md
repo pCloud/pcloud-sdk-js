@@ -49,8 +49,7 @@ appshare(
   folderid: number,
   userid: number,
   clientid: string,
-  permissions: 0 | 7,
-  message: ?string
+  access: "view" | "edit"
 ): Promise<boolean>
 ```
 

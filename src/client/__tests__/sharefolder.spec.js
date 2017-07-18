@@ -30,6 +30,13 @@ describe("sharefolder", () => {
 		});
 	});
 
+	it("correctly sends params for edit", async () => {
+		const response = await sharefolder(100, "test@fakemail.com", "edit");
+
+		expect(response).toMatchSnapshot();
+		expect(apiMethod.mock.calls[0][1].params).toMatchSnapshot();
+	});
+
 	it("throws for wrong permissions", () => {
 		expect(() => {
 			sharefolder(100, "test@fakemail.com", 5);
