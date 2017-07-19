@@ -12,6 +12,7 @@ Use the following snippet in some user initiated action (click):
 pCloudSdk.oauth.initOauthToken({
   client_id: 'YOUR_CLIENT_ID',
   redirect_uri: 'YOUR_REDIRECT_URL',
+  response_type: 'token' | 'code',
   receiveToken: function(access_token) {
     // do something with the token.
   }

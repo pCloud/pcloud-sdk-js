@@ -24,9 +24,7 @@ export default function createParser() {
         break;
       }
 
-      let { result, size, url, fileid } = _thumbObj(
-        text.substr(lastLinePos, nextLinePos - lastLinePos)
-      );
+      let { result, size, url, fileid } = _thumbObj(text.substr(lastLinePos, nextLinePos - lastLinePos));
       lastLinePos = nextLinePos;
 
       if (result === 6001) {

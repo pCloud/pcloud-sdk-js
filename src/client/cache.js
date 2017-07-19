@@ -7,19 +7,19 @@ type CacheObject = {
 
 type CacheStore = {
   [id: string]: CacheObject
-}
+};
 
 type Cache = {
-  cacheid: (string) => string,
-  get: (string) => mixed,
-  has: (string) => boolean,
+  cacheid: string => string,
+  get: string => mixed,
+  has: string => boolean,
   getOrSet: (string, mixed, number) => mixed,
   set: (string, mixed, number) => mixed,
-  expire: (string) => void,
-  expireMatch: (string) => void,
+  expire: string => void,
+  expireMatch: string => void,
   clean: () => void,
   cleanAll: () => void
-}
+};
 
 const defaultExpiry: number = 30;
 
@@ -29,10 +29,10 @@ export default function createCache(): Cache {
   function cacheid(name: string): string {
     var cacheid = name;
     var n = 0;
-    if (arguments.length > 1 && typeof arguments[1] === 'object') {
+    if (arguments.length > 1 && typeof arguments[1] === "object") {
       for (n in arguments[1]) {
         if (arguments[1].hasOwnProperty(n)) {
-          cacheid += '-' + n + ':' + arguments[1][n];
+          cacheid += "-" + n + ":" + arguments[1][n];
         }
       }
     } else {
@@ -55,7 +55,7 @@ export default function createCache(): Cache {
   }
 
   function has(key: string): boolean {
-    return (key in cacheObj) && cacheObj[key].expiry > Date.now();
+    return key in cacheObj && cacheObj[key].expiry > Date.now();
   }
 
   function getOrSet(key: string, val: mixed, expiry: number = defaultExpiry) {
@@ -102,11 +102,17 @@ export default function createCache(): Cache {
   }
 
   return {
-    cacheid, has, get, set, getOrSet, expire,
-    expireMatch, clean, cleanAll
+    cacheid,
+    has,
+    get,
+    set,
+    getOrSet,
+    expire,
+    expireMatch,
+    clean,
+    cleanAll
   };
 }
-
 
 /*
 function debug(): CacheStore {

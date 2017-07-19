@@ -1,0 +1,21 @@
+exports[`appshare sends correct data for appshare with edit 1`] = `
+Object {
+  "auth": "testauth",
+  "client_id": "clientid",
+  "folderid": 100,
+  "permissions": 7,
+  "userid": 1,
+}
+`;
+
+exports[`appshare sends correct data for appshare with view 1`] = `
+Object {
+  "auth": "testauth",
+  "client_id": "clientid",
+  "folderid": 100,
+  "permissions": 7,
+  "userid": 1,
+}
+`;
+
+exports[`appshare sends correct data for appshare with view 2`] = `true`;

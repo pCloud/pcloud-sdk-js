@@ -1,23 +1,20 @@
-jest.mock('../../api/ApiMethod');
-import apiMethod, { one, text } from '../../api/ApiMethod';
+jest.mock("../../api/ApiMethod");
+import apiMethod, { one, text } from "../../api/ApiMethod";
 
 var getThumbsSpy = jest.fn();
 var receiveThumbSpy = jest.fn();
 
-const image = 'data:image/jpeg;base64,/9j/4AAQSkZ';
+const image = "data:image/jpeg;base64,/9j/4AAQSkZ";
 
-const exampleResult = [
-  "2412453536|0|32x32|" + image,
-  "3|6001|0"
-];
+const exampleResult = ["2412453536|0|32x32|" + image, "3|6001|0"];
 
-one((method, { params }) => method === 'getthumbs', text(exampleResult.join("\n") + "\n"), getThumbsSpy);
+one((method, { params }) => method === "getthumbs", text(exampleResult.join("\n") + "\n"), getThumbsSpy);
 
 import createClient from "../createClient";
-const { getthumbs } = createClient('testauth', 'oauth', false);
+const { getthumbs } = createClient("testauth", "oauth", false);
 
-describe('getthumbs', () => {
-  it('works correctly', async () => {
+describe("getthumbs", () => {
+  it("works correctly", async () => {
     const response = await getthumbs([1, 2], receiveThumbSpy);
 
     expect(getThumbsSpy).toHaveBeenCalledTimes(1);

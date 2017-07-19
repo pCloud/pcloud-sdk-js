@@ -24,9 +24,8 @@ let handlers: Array<[matchFunc, respondFunc, onFire]> = [];
 export default jest.fn((method: string, options: {}) => {
   let promised = null;
 
-  for (let [ match, respond, onFire ] of handlers) {
+  for (let [match, respond, onFire] of handlers) {
     if (match(method, options)) {
-
       promised = respond(method, options);
 
       if (onFire) {
@@ -44,12 +43,8 @@ export default jest.fn((method: string, options: {}) => {
   return promised;
 });
 
-export function on(
-  match: matchFunc,
-  respond: respondFunc,
-  onFire: onFire
-) {
-  handlers.push([ match, respond, onFire ]);
+export function on(match: matchFunc, respond: respondFunc, onFire: onFire) {
+  handlers.push([match, respond, onFire]);
 }
 
 export function one(match: matchFunc, respond: respondFunc, onFire: onFire) {
