@@ -3,5 +3,5 @@
 import type { MethodApi } from "../types";
 
 export default ({ client }: MethodApi) => (): Promise<Object> => {
-	return client.api("userinfo");
+  return client.api("userinfo");
 };

@@ -22,69 +22,69 @@ import type { ApiError } from "../types";
 let handlers: Array<[matchFunc, respondFunc, onFire]> = [];
 
 export default jest.fn((method: string, options: {}) => {
-	let promised = null;
+  let promised = null;
 
-	for (let [match, respond, onFire] of handlers) {
-		if (match(method, options)) {
-			promised = respond(method, options);
+  for (let [match, respond, onFire] of handlers) {
+    if (match(method, options)) {
+      promised = respond(method, options);
 
-			if (onFire) {
-				onFire(method, options);
-			}
+      if (onFire) {
+        onFire(method, options);
+      }
 
-			break;
-		}
-	}
+      break;
+    }
+  }
 
-	if (promised === null) {
-		throw new Error(`No route found for: ${method}. Handlers: ${handlers.length} `);
-	}
+  if (promised === null) {
+    throw new Error(`No route found for: ${method}. Handlers: ${handlers.length} `);
+  }
 
-	return promised;
+  return promised;
 });
 
 export function on(match: matchFunc, respond: respondFunc, onFire: onFire) {
-	handlers.push([match, respond, onFire]);
+  handlers.push([match, respond, onFire]);
 }
 
 export function one(match: matchFunc, respond: respondFunc, onFire: onFire) {
-	var me = [
-		function() {
-			const isMatch = match.apply(null, arguments);
+  var me = [
+    function() {
+      const isMatch = match.apply(null, arguments);
 
-			if (isMatch) {
-				handlers.splice(handlers.indexOf(me), 1);
-			}
+      if (isMatch) {
+        handlers.splice(handlers.indexOf(me), 1);
+      }
 
-			return isMatch;
-		},
-		respond,
-		onFire
-	];
+      return isMatch;
+    },
+    respond,
+    onFire
+  ];
 
-	handlers.push(me);
+  handlers.push(me);
 }
 
 export function text(data: string) {
-	return (method: string) => Promise.resolve(data);
+  return (method: string) => Promise.resolve(data);
 }
 
 export function success(data: any) {
-	return (method: string) => {
-		data.result = 0;
+  return (method: string) => {
+    data.result = 0;
 
-		return Promise.resolve(data);
-	};
+    return Promise.resolve(data);
+  };
 }
 
 export function error(result: number, error: string) {
-	return (method: string, options: { onError?: () => void }) => {
-		const errorObj: ApiError = { result: result, error: error };
+  return (method: string, options: { onError?: () => void }) => {
+    const errorObj: ApiError = { result: result, error: error };
 
-		if (options.onError) {
-			options.onError(errorObj);
-		}
+    if (options.onError) {
+      options.onError(errorObj);
+    }
 
-		return Promise.reject(errorObj);
-	};
+    return Promise.reject(errorObj);
+  };
 }
