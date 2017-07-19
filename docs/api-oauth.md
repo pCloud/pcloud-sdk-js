@@ -1,6 +1,6 @@
 ## pCloudSdk.oauth
 
-- This is the API Reference for the `oauth` export. For details how to use them see [Oauth](Oauth.md).
+- This is the API Reference for the `oauth` export. For details how to use them see [Oauth](oauth.md).
 - If you want to built yourself a custom Oauth flow see the [pCloud's API Docs](https://docs.pcloud.com/methods/oauth_2.0/index.html).
 
 #### initOauthToken
@@ -33,4 +33,4 @@ getTokenFromCode(
 ): Promise<{ userid, access_token }>
 ```
 
-- `code` can be received either manually by the user via copy & paste (see [oauth example](examples/node/token.js)) or by specifying `response_type: "code"` to `initOauthToken`.
+- `code` can be received either manually by the user via copy & paste (see [oauth example](../examples/node/token.js)) or by specifying `response_type: "code"` to `initOauthToken`.
