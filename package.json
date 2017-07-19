@@ -29,7 +29,7 @@
     "test": "npm run test-only",
     "test-only": "jest --coverage --colors",
     "test:watch": "jest --colors --watch",
-    "prettier": "prettier --print-width 120 --use-tabs -l \"src/**/*.js\" --write",
+    "prettier": "prettier --print-width 120 -l \"src/**/*.js\" --write",
     "precommit": "lint-staged"
   },
   "babel": {
