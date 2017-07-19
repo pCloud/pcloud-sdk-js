@@ -24,7 +24,7 @@ This will open a popup window where the user can authorize the usage of your app
 pCloudSdk.oauth.popup();
 ```
 
-This will ensure that the snippet above will work and the `access_token` will be received. Checkout the [oauth examples](/pcloud-sdk-js/examples/) for more info.
+This will ensure that the snippet above will work and the `access_token` will be received. Checkout the [oauth examples](../examples/) for more info.
 
 ## Server side flow
 For server side applications you would be using a token received from the user via the client side flow and then saved in some kind persistent storage (database or else).
