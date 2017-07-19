@@ -50,6 +50,7 @@
 
     el('gettoken').addEventListener('click', function(e) {
       pCloudSdk.oauth.initOauthToken({
+        response_type: "token",
         client_id: 'p1WznE2dEPm',
         redirect_uri: 'http://127.0.0.1:8080/oauth.html',
         receiveToken: function(token) {

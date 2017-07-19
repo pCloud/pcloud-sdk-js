@@ -9,7 +9,8 @@
 initOauthToken({
   client_id: string,
   redirect_uri: string,
-  receiveToken: () => void
+  response_type: "token" | "code",
+  receiveToken: (token) => void
 });
 ```
 
@@ -32,4 +33,4 @@ getTokenFromCode(
 ): Promise<{ userid, access_token }>
 ```
 
-- `code` is received from the user. For example usage checkout the [oauth example](examples/node/token.js).
+- `code` can be received either manually by the user via copy & paste (see [oauth example](examples/node/token.js)) or by specifying `response_type: "code"` to `initOauthToken`.

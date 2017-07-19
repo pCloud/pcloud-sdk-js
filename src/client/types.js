@@ -8,9 +8,7 @@ export type FileLocal = { name: string, path: string, size: number };
 
 export type ClientType = "oauth" | "pcloud";
 
-export type ClientApiMethodOptions =
-  & ApiMethodOptions
-  & { cache?: boolean, cacheTime?: number };
+export type ClientApiMethodOptions = ApiMethodOptions & { cache?: boolean, cacheTime?: number };
 
 export type ApiClient = {
   api(method: string, options?: ApiMethodOptions): Promise<any>,
@@ -26,9 +24,9 @@ export type MethodApi = {
 
 export type ClientMethod = (T: MethodApi) => () => Promise<*>;
 
-export type thumbTypes = 'jpg' | 'png' | 'auto';
-export type thumbSizes = '32x32' | '120x120';
+export type thumbTypes = "jpg" | "png" | "auto";
+export type thumbSizes = "32x32" | "120x120";
 export type thumbB64 = {
   url: string,
-  fileid: number,
-}
+  fileid: number
+};

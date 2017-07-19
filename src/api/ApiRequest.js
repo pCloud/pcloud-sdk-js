@@ -10,10 +10,7 @@ let waitCallbacks: {
   [id: string]: Array<[(T: ApiResult) => void, ApiRequestOptions]>
 } = {};
 
-export default function ApiRequest(
-  url: string,
-  options: ApiRequestOptions = {}
-): Promise<ApiResult> {
+export default function ApiRequest(url: string, options: ApiRequestOptions = {}): Promise<ApiResult> {
   invariant(url.length, "`url` is required.");
 
   let {
@@ -52,10 +49,7 @@ export default function ApiRequest(
   // works for both node/web
   // in one case its path to file, in the other is File object
   if (files.length) {
-    invariant(
-      [ "put", "post" ].indexOf(method) !== -1,
-      "When uploading, `method` must be either `post` or `put`."
-    );
+    invariant(["put", "post"].indexOf(method) !== -1, "When uploading, `method` must be either `post` or `put`.");
 
     files.forEach(({ name = "file", file }) => {
       invariant(file, "`file` is a required property of `files`.");
@@ -79,10 +73,7 @@ export default function ApiRequest(
      */
     if (pipe) {
       return new Promise((resolve, reject) => {
-        req
-          .pipe(pipe)
-          .on('finish', resolve)
-          .on('error', reject);
+        req.pipe(pipe).on("finish", resolve).on("error", reject);
       });
     }
   }
@@ -144,7 +135,7 @@ export default function ApiRequest(
 
     if (url in waitCallbacks) {
       while (waitCallbacks[url].length) {
-        const [ callback ] = waitCallbacks[url].shift();
+        const [callback] = waitCallbacks[url].shift();
 
         callback(body);
       }

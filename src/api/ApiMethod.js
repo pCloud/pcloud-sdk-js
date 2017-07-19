@@ -7,25 +7,13 @@ import ApiRequest from "./ApiRequest";
 import type { ApiResult, ApiMethodOptions } from "./types";
 const defaultApiServer = "api.pcloud.com";
 
-export default function ApiMethod(
-  method: string,
-  options: ApiMethodOptions = {}
-): Promise<ApiResult> {
-  const {
-    apiServer = defaultApiServer,
-    apiProtocol = "https",
-    params = {},
-    ...requestParams
-  } = options;
+export default function ApiMethod(method: string, options: ApiMethodOptions = {}): Promise<ApiResult> {
+  const { apiServer = defaultApiServer, apiProtocol = "https", params = {}, ...requestParams } = options;
+
+  invariant(isApiMethod(method), "Method `" + method + "` is not pCloud API method.");
 
   invariant(
-    isApiMethod(method),
-    "Method `" + method + "` is not pCloud API method."
-  );
-
-  invariant(
-    !isAuthMethod(method) || "auth" in params || "access_token" in params ||
-      "username" in params,
+    !isAuthMethod(method) || "auth" in params || "access_token" in params || "username" in params,
     "`auth` must be present for methods that require authentication."
   );
 

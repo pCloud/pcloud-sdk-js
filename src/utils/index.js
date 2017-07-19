@@ -1,3 +1,5 @@
-export * from './functions';
-export { default as httpProgressMiddleware } from './httpProgressMiddleware';
-export * from './methods';
+// @flow
+
+export * from "./functions";
+export { default as httpProgressMiddleware } from "./httpProgressMiddleware";
+export * from "./methods";

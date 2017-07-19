@@ -1,3 +1,3 @@
 /* @flow */
 
-global.ENV = 'web';
+global.ENV = "web";
