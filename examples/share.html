@@ -68,7 +68,7 @@
 
       var file = this.files[0];
 
-      authClient.appshare(sharefolder, clientUserId, clientid, 7).then(function() {
+      authClient.appshare(sharefolder, clientUserId, clientid, "edit").then(function() {
         uploadFile(file).then(function() {
           client.listfolder(sharefolder).then(function(metadata) {
             console.log("Client listfolder");

@@ -139,7 +139,7 @@ renamefolder(name: string, parentfolderid: number)
 ```
 
 ``` js
-upload(file: string | File, folderid: number, options: UploadOptions):Promise<metadata>
+upload(file: string | File, folderid: number, options: UploadOptions): Promise<metadata>
 
 type UploadOptions = {
   onBegin?: () => void,
