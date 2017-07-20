@@ -1,0 +1,142 @@
+<html>
+<head>
+  <title>pCloud SDK: Examples / Upload</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+    }
+    .setup {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+    }
+    * {
+      font-family: arial;
+      font-size: 13px;
+    }
+    input[type=text], input[type=number] {
+      line-height: 22px;
+      padding: 0 0 0 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="setup">
+    <table cellpadding="3">
+    <tr>
+      <td>Folderid:</td>
+      <td><input type="number" size="5" maxlength="20" value="" id="folderid" /></td>
+    </tr>
+    <tr>
+      <td>Auth token:</td>
+      <td><input type="text" size="40" id="auth" value="" /></td>
+    </tr>
+    <tr>
+      <td colspan="2" align="center"><button id="save">Save Account</button></td>
+    </tr>
+    <tr><td>&nbsp;</td></tr>
+    <tr>
+      <td>OAuth: </td>
+      <td><button id="gettoken" disabled>Get Token</button></td>
+    </tr>
+    </table>
+  </div>
+
+  <input type="file" id="file" disabled="disabled">
+
+  <script type="text/javascript" src="examples/pcloudsdk.js"></script>
+  <script>
+    'use strict';
+
+    var clientid = "p1WznE2dEPm";
+
+    var access_token = false;
+    var client = false;
+    var clientUserId = false;
+
+    var authClient = false;
+    var sharefolder = false;
+
+    el("file").addEventListener('change', function(e) {
+      if (!client) {
+        this.value = '';
+        console.error('no token, click the button to get token.');
+        return;
+      }
+
+      var file = this.files[0];
+
+      authClient.appshare(sharefolder, clientUserId, clientid, "edit").then(function() {
+        uploadFile(file).then(function() {
+          client.listfolder(sharefolder).then(function(metadata) {
+            console.log("Client listfolder");
+            metadata.contents.forEach(item => console.log(item));
+          });
+
+          authClient.listfolder(sharefolder).then(function(metadata) {
+            console.log("Sharer listfolder");
+            metadata.contents.forEach(item => console.log(item));
+          });
+        });
+      });
+
+      function uploadFile(file) {
+        return client.upload(file, sharefolder, {
+          onBegin: function() {
+            console.log('Upload started.');
+          },
+          onProgress: function(progress) {
+            console.log(progress.direction, progress.loaded, progress.total, Math.round(progress.loaded / progress.total * 100, 1));
+          },
+          onFinish: function(uploadData) {
+            console.log(uploadData);
+          }
+        });
+      }
+    }, false);
+
+    function el(id) {
+      return document.getElementById(id);
+    }
+
+    el('gettoken').addEventListener('click', function(e) {
+      pCloudSdk.oauth.initOauthToken({
+        client_id: clientid,
+        redirect_uri: 'http://127.0.0.1:8080/oauth.html',
+        receiveToken: function(token) {
+          console.log(token);
+          access_token = token;
+          client = pCloudSdk.createClient(token);
+
+          client.userinfo().then(function (userinfo) {
+            clientUserId = userinfo.userid;
+            el('file').disabled = false;
+          });
+        }
+      });
+    }, false);
+
+    el("save").addEventListener("click", function(e) {
+      var token = el("auth").value;
+      var folderid = el("folderid").value;
+
+      if (!token || !folderid) {
+        return;
+      }
+
+      var tryClient = pCloudSdk.createClient(token, "pcloud", false);
+      tryClient.api("stat", { params: { folderid: folderid }}).then(function(ret) {
+        if (ret.metadata) {
+          sharefolder = ret.metadata.folderid;
+          authClient = tryClient;
+
+          el("gettoken").disabled = false;
+        }
+      });
+    });
+
+  </script>
+</body>
+</html>

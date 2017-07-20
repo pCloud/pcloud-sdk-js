@@ -1,3 +1,3 @@
 /* @flow */
 
-global.ENV = 'node';
+global.ENV = "node";

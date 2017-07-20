@@ -43,6 +43,16 @@ The proxy server will set internally. You can wait for the promise to resolve, i
 
 These are higher order wrappers over `client.api`. All are `then`-able allowing for easy composition.
 
+**appshare** methods allows your OAuth application to create shares with its users. These shares reside in the app's folder an can be created programatically without the users's additional approval. This method can only be called with client created with type **pcloud** and should be called only server side.
+```js
+appshare(
+  folderid: number,
+  userid: number,
+  clientid: string,
+  access: "view" | "edit"
+): Promise<boolean>
+```
+
 ```js
 createfolder(name: string, parentfolderid: number = 0): Promise<metadata>
 ```
@@ -129,7 +139,7 @@ renamefolder(name: string, parentfolderid: number)
 ```
 
 ``` js
-upload(file: string | File, folderid: number, options: UploadOptions):Promise<metadata>
+upload(file: string | File, folderid: number, options: UploadOptions): Promise<metadata>
 
 type UploadOptions = {
   onBegin?: () => void,

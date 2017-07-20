@@ -1,0 +1,10 @@
+exports[`sharefolder correctly sends params for edit 1`] = `true`;
+
+exports[`sharefolder correctly sends params for edit 2`] = `
+Object {
+  "auth": "testauth",
+  "folderid": 100,
+  "mail": "test@fakemail.com",
+  "permissions": 0,
+}
+`;

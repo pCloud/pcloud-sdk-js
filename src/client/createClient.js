@@ -10,15 +10,8 @@ import { isAuthMethod } from "../utils";
 
 const defaultApiServer = "api.pcloud.com";
 
-export default function createClient(
-  token: string,
-  type: ClientType = "oauth",
-  useProxy: boolean = false
-) {
-  invariant(
-    [ "oauth", "pcloud" ].indexOf(type) !== -1,
-    "`type` must be either `oauth` or `pcloud`."
-  );
+export default function createClient(token: string, type: ClientType = "oauth", useProxy: boolean = false) {
+  invariant(["oauth", "pcloud"].indexOf(type) !== -1, "`type` must be either `oauth` or `pcloud`.");
 
   if (type === "oauth") {
     invariant(typeof token === "string", "`token` is required.");
@@ -39,31 +32,26 @@ export default function createClient(
     return options;
   }
 
-  function api(
-    method: string,
-    options?: ClientApiMethodOptions = {}
-  ): Promise<ApiResult> {
+  function api(method: string, options?: ClientApiMethodOptions = {}): Promise<ApiResult> {
     let mergeOptions = deepAssign({}, initialOptions(method), options);
 
-    return ApiMethod(method, mergeOptions)
-      .catch((error) => {
-        if (error.result === 500 && apiServer !== defaultApiServer) {
-          // reset API server
-          apiServer = defaultApiServer;
+    return ApiMethod(method, mergeOptions).catch(error => {
+      if (error.result === 500 && apiServer !== defaultApiServer) {
+        // reset API server
+        apiServer = defaultApiServer;
 
-          // retry
-          return api(method, options);
-        } else {
-          return Promise.reject(error);
-        }
-      });
+        // retry
+        return api(method, options);
+      } else {
+        return Promise.reject(error);
+      }
+    });
   }
 
   function setupProxy() {
-    return api("getapiserver", {})
-      .then((response: any) => {
-        return apiServer = response.api[0];
-      });
+    return api("getapiserver", {}).then((response: any) => {
+      return (apiServer = response.api[0]);
+    });
   }
 
   function setToken(newToken: string) {
