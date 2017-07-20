@@ -48,13 +48,13 @@ export default function createClient(token: string, type: ClientType = "oauth", 
     });
   }
 
-  function setupProxy() {
+  function setupProxy(): Promise<string> {
     return api("getapiserver", {}).then((response: any) => {
       return (apiServer = response.api[0]);
     });
   }
 
-  function setToken(newToken: string) {
+  function setToken(newToken: string): void {
     token = newToken;
   }
 
