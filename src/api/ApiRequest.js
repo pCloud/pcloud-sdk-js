@@ -51,10 +51,10 @@ export default function ApiRequest(url: string, options: ApiRequestOptions = {})
   if (files.length) {
     invariant(["put", "post"].indexOf(method) !== -1, "When uploading, `method` must be either `post` or `put`.");
 
-    files.forEach(({ name = "file", file }) => {
+    files.forEach(({ name = undefined, file }) => {
       invariant(file, "`file` is a required property of `files`.");
 
-      req.attach(name, file);
+      req.attach(filenameKey(), file, name);
     });
   }
 
@@ -141,4 +141,9 @@ export default function ApiRequest(url: string, options: ApiRequestOptions = {})
       }
     }
   }
+}
+
+let n = 1;
+function filenameKey(): string {
+  return "file-upload-" + ++n;
 }

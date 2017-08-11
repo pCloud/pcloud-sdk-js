@@ -16,7 +16,7 @@ export default ({ client }: MethodApi) => (file: string, folderid: number = 0, o
     .api("uploadfile", {
       method: "post",
       params: { folderid: folderid, nopartial: 1 },
-      files: [{ file: file, name: file.split("/").pop() }],
+      files: [{ file: file }],
       onProgress: progress => {
         if (progress.direction === "upload") {
           onProgress(progress);

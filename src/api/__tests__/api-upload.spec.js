@@ -19,7 +19,7 @@ describe("upload trough api", () => {
           method: "post",
           files: [
             {
-              name: "image",
+              name: "other-image.jpg",
               file: path.resolve(__dirname, "../../../examples/node/files/image.jpg")
             }
           ]
@@ -27,7 +27,7 @@ describe("upload trough api", () => {
 
         expect(result.files.length).toBe(1);
         expect(result.files[0].size).toBe(3129022);
-        expect(result.files[0].originalFilename).toBe("image.jpg");
+        expect(result.files[0].originalFilename).toBe("other-image.jpg");
       });
   });
 });

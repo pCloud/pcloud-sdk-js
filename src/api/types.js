@@ -16,7 +16,7 @@ export type ProgressEvent = {
   total: number
 };
 
-type UploadFile = { name: string, file: string | File };
+type UploadFile = { name?: string, file: string | File };
 
 export type ApiRequestOptions = {
   // common
