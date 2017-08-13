@@ -1,9 +1,0 @@
-{
-  "extends": "react-app",
-  rules: {
-    "semi": "error"
-  },
-  globals: {
-    "ENV": true
-  }
-}

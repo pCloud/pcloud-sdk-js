@@ -1,3 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`sharefolder correctly sends params for edit 1`] = `true`;
 
 exports[`sharefolder correctly sends params for edit 2`] = `

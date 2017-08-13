@@ -1,3 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`appshare sends correct data for appshare with edit 1`] = `
 Object {
   "auth": "testauth",
