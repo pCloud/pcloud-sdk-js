@@ -7,7 +7,8 @@ const mockReturnListfolder = {
   metadata: {
     name: "/",
     folderid: 0,
-    isfolder: true
+    isfolder: true,
+    icon: 20
   }
 };
 
@@ -31,6 +32,24 @@ describe("listfolder", () => {
     const { access_token, folderid } = query;
     expect(access_token).toBe("testauth");
     expect(folderid).toBe("0");
+  });
+
+  it("list the folder with optional parameters", async () => {
+    var query;
+    superMockery(/listfolder/, mockResponse(mockReturnListfolder), q => {
+      query = q;
+    });
+
+    const response = await listfolder(0, { iconformat: 'id' });
+    expect(response.name).toBe("/");
+    expect(response.folderid).toBe(0);
+    expect(response.isfolder).toBe(true);
+    expect(response.icon).toBe(20);
+
+    const { access_token, folderid, iconformat } = query;
+    expect(access_token).toBe("testauth");
+    expect(folderid).toBe("0");
+    expect(iconformat).toBe("id");
   });
 
   it("on wrong folderid returns error 2005", async () => {
