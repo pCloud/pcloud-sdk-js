@@ -1,7 +1,7 @@
 var prompt = require('prompt');
 var fs = require('fs');
 var url = require('url');
-var oauth = require('../../lib').oauth;
+var oauth = require('pcloud-sdk-js').oauth;
 
 if (!appExists()) {
   resetAppJson();

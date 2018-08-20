@@ -1,4 +1,4 @@
-const pcloud = require('../../lib');
+const pcloud = require('pcloud-sdk-js');
 const invariant = require('invariant');
 const app = require('./app.json');
 

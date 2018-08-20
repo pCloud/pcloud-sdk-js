@@ -47,3 +47,14 @@ export function methodStringify(method: string, params: Object): string {
 export function pCloudUrl(data: DownloadData) {
   return "https://" + data.hosts[0] + data.path;
 }
+
+export function generateRandomString(length: number) {
+  const strArr = [];
+  const base = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+  for (let i = 0; i < length; i++) {
+    strArr.push(base[Math.floor(Math.random() * 100)]);
+  }
+
+  return strArr.join("");
+}

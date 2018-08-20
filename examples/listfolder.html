@@ -1,4 +1,5 @@
 <html>
+
 <head>
   <title>pCloud SDK: Examples / List folder</title>
   <style>
@@ -6,16 +7,25 @@
       margin: 0;
       padding: 20px;
     }
-    #gettoken {
-      position: fixed;
+
+    #gettoken-redirect {
       top: 20px;
+      position: fixed;
+      right: 20px;
+    }
+
+    #gettoken-poll {
+      top: 50px;
+      position: fixed;
       right: 20px;
     }
   </style>
 </head>
+
 <body>
 
-  <button id="gettoken">Get Token</button>
+  <button id="gettoken-redirect">Get Token(redirect)</button>
+  <button id="gettoken-poll">Get Token(poll)</button>
 
   <script type="text/javascript" src="examples/pcloudsdk.js"></script>
   <script>
@@ -85,26 +95,39 @@
       return client.listfolder(0).then(children).then(map(name));
     }
 
-    el('gettoken').addEventListener('click', function(e) {
+    function receiveTokenCb(token) {
+      console.log(token);
+      access_token = token;
+      client = pCloudSdk.createClient(token);
+
+      folderSize(0).then((a) => {
+        console.log('Size: ', a);
+      });
+
+      folderItems(0).then((a) => {
+        console.log('Items: ', a);
+      });
+    }
+    // Oauth authenticate with redirect uri
+    el('gettoken-redirect').addEventListener('click', function (e) {
       pCloudSdk.oauth.initOauthToken({
-        client_id: 'p1WznE2dEPm',
+        client_id: 'BJpmGFpuj3S',
         redirect_uri: 'http://127.0.0.1:8080/oauth.html',
-        receiveToken: function(token) {
-          console.log(token);
-          access_token = token;
-          client = pCloudSdk.createClient(token);
+        receiveToken: receiveTokenCb,
+        onError: err => console.log(err)
+      });
+    }, false);
 
-          folderSize(0).then((a) => {
-            console.log('Size: ', a);
-          });
-
-          folderItems(0).then((a) => {
-            console.log('Items: ', a);
-          });
-        }
+    // Oauth authenticate without redirect uri
+    el('gettoken-poll').addEventListener('click', function (e) {
+      pCloudSdk.oauth.initOauthPollToken({
+        client_id: 'BJpmGFpuj3S',
+        receiveToken: receiveTokenCb,
+        onError: err => console.log(err)
       });
     }, false);
 
   </script>
 </body>
+
 </html>
