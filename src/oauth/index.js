@@ -51,7 +51,7 @@ function initOauthToken(options: oAuthOptions) {
   });
 
   window.open(oauthUrl, "oauth", "width=680,height=535");
-  window.__setPcloudToken = function(token) {
+  window.__setPcloudToken = function (token) {
     receiveToken(token);
     delete window.__setPcloudToken;
   };
@@ -70,18 +70,16 @@ function initOauthPollToken(options: oAuthPollOptions) {
     client_id: client_id,
     response_type: "poll_token"
   });
-  const loginOauth = window.open(oauthUrl, "oauth", "width=680,height=535");
+  window.open(oauthUrl, "", "width=680,height=535");
 
   ApiMethod("oauth2_token", {
     params: { client_id: client_id, request_id: request_id }
   })
     .then(res => {
       receiveToken(res.access_token);
-      loginOauth.close();
     })
     .catch(err => {
       onError(err);
-      loginOauth.close();
     });
 }
 
