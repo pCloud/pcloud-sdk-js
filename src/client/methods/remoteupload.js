@@ -62,7 +62,10 @@ export default ({ client }: MethodApi) => (urls: string, folderid: number = 0, o
       onFinish({ metadata: metadata[0] });
       return { metadata: metadata[0] };
     })
-    .catch(err => console.log("err", err));
+    .catch(err => {
+      stopProgress();
+      console.log("Error", err)
+    });
 };
 
 const calculateProgress = (files: Array<RemoteUploadProgressFile> = []): RemoteUploadProgress => {
