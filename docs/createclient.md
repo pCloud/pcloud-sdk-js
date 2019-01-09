@@ -62,7 +62,7 @@ deletefile(fileid: number): Promise<boolean>
 ```
 
 ``` js
-deletefodler(folderid: number): Promise<boolean>
+deletefolder(folderid: number): Promise<boolean>
 
 ```
 
