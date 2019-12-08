@@ -12,11 +12,11 @@ export default function createParser() {
   let lastLinePos = 0;
   let thumbs = [];
   let nextLinePos;
-  //let currentLine;
 
   return (text: string): Array<thumbB64> => {
     let setThumbs = [];
 
+    // eslint-disable-next-line no-constant-condition
     while (1) {
       nextLinePos = text.indexOf("\n", lastLinePos + 1);
 
@@ -24,7 +24,7 @@ export default function createParser() {
         break;
       }
 
-      let { result, size, url, fileid } = _thumbObj(text.substr(lastLinePos, nextLinePos - lastLinePos));
+      let { result, size, url, fileid } = parseLines(text.substr(lastLinePos, nextLinePos - lastLinePos));
       lastLinePos = nextLinePos;
 
       if (result === 6001) {
@@ -44,13 +44,13 @@ export default function createParser() {
   };
 }
 
-function _thumbObj(line: string) {
+function parseLines(line: string) {
   const obj = line.split("|");
 
   return {
     result: parseInt(obj[THUMB_RESULT], 10),
     url: THUMB_URL in obj ? obj[THUMB_URL].trim() : "",
     fileid: parseInt(obj[THUMB_FILEID], 10),
-    size: obj[THUMB_SIZE]
+    size: obj[THUMB_SIZE],
   };
 }

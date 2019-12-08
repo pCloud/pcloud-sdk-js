@@ -1,6 +1,6 @@
 /* @flow */
 
-import type { ApiMethodOptions } from "../api/types";
+import type { ApiMethodOptions, DownloadOptions } from "../api/types";
 
 export type Item = { name: string, isfolder: boolean, id: string };
 
@@ -12,14 +12,15 @@ export type ClientApiMethodOptions = ApiMethodOptions & { cache?: boolean, cache
 
 export type ApiClient = {
   api(method: string, options?: ApiMethodOptions): Promise<any>,
-  getfilelink(): Promise<string>,
-  download(): void
+  getfilelink(number): Promise<string>,
+  download(string): void,
+  download: (string, DownloadOptions) => string => Promise<FileLocal>,
 };
 
 export type MethodApi = {
   client: ApiClient,
   setToken(token: string): void,
-  type: string
+  type: string,
 };
 
 export type ClientMethod = (T: MethodApi) => () => Promise<*>;
@@ -28,5 +29,5 @@ export type thumbTypes = "jpg" | "png" | "auto";
 export type thumbSizes = "32x32" | "120x120";
 export type thumbB64 = {
   url: string,
-  fileid: number
+  fileid: number,
 };

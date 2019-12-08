@@ -12,8 +12,8 @@ export default ({ client }: MethodApi) => (name: string = "", parentfolderid: nu
     .api("createfolder", {
       params: {
         name: name,
-        folderid: parentfolderid
-      }
+        folderid: parentfolderid,
+      },
     })
     .then(response => response.metadata);
 };

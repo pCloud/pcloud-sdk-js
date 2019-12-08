@@ -13,8 +13,8 @@ export default ({ client }: MethodApi) => (fileid: number, toname: string): Prom
     .api("renamefile", {
       params: {
         fileid: fileid,
-        toname: toname
-      }
+        toname: toname,
+      },
     })
     .then(response => response.metadata);
 };

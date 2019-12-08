@@ -11,7 +11,7 @@ export default ({ client, setToken }: MethodApi) => (email: string, password: st
 
   return client
     .api("userinfo", {
-      params: { username: email, password: password, getauth: 1, logout: 1 }
+      params: { username: email, password: password, getauth: 1, logout: 1 },
     })
     .then(({ auth }) => {
       setToken(auth);

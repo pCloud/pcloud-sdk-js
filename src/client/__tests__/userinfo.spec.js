@@ -1,8 +1,9 @@
-jest.mock("../../api/ApiMethod");
 import apiMethod, { one, success } from "../../api/ApiMethod";
 
 import createClient from "../createClient";
 const { userinfo } = createClient("access_token");
+
+jest.mock("../../api/ApiMethod");
 
 const mockReturnUserinfo = {
   emailverified: true,
@@ -14,7 +15,7 @@ const mockReturnUserinfo = {
   publiclinkquota: 53687091200,
   language: "en",
   email: "user@mail.com",
-  registered: "Tue, 01 Oct 2013 17:50:23 +0000"
+  registered: "Tue, 01 Oct 2013 17:50:23 +0000",
 };
 
 var userinfoCalled = jest.fn();
@@ -32,7 +33,7 @@ describe("userinfo", () => {
     expect(apiMethod).toHaveBeenCalledTimes(1);
     expect(apiMethod).toHaveBeenCalledWith("userinfo", {
       apiServer: "api.pcloud.com",
-      params: { access_token: "access_token" }
+      params: { access_token: "access_token" },
     });
   });
 });

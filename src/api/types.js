@@ -6,14 +6,14 @@ export type dataType = "text" | "json" | "blob";
 export type httpMethod = "get" | "post";
 export type httpData = {} | FormData | Blob;
 
-export type ApiResult = { result: 0 };
-export type ApiError = { result: number, error: string };
+export type ApiResult = {| result: 0 |} & { [mixed]: * };
+export type ApiError = {| result: number, error: string |};
 export type ApiResponse = ApiResult | ApiError;
 
 export type ProgressEvent = {
   direction: "upload" | "download",
   loaded: number,
-  total: number
+  total: number,
 };
 
 type UploadFile = { name?: string, file: string | File };
@@ -26,7 +26,7 @@ export type ApiRequestOptions = {
   xhr?: (xhr: XMLHttpRequest) => void,
   pipe?: WriteStream,
   params?: {},
-  files?: Array<UploadFile>
+  files?: Array<UploadFile>,
 };
 
 export type ApiMethodOptions = ApiRequestOptions & { apiServer?: string, apiProtocol?: string };
@@ -35,24 +35,24 @@ export type RemoteUploadProgressFile = {
   url: string,
   status: string,
   downloaded: number,
-  size: number
+  size: number,
 };
 
 export type RemoteUploadProgress = {
   all: { size: number, downloaded: number },
-  files: Array<RemoteUploadProgressFile>
+  files: Array<RemoteUploadProgressFile>,
 };
 
 export type UploadOptions = {
   onBegin?: () => void,
   onProgress?: (T: ProgressEvent | RemoteUploadProgress) => void,
-  onFinish?: () => void
+  onFinish?: (*) => void,
 };
 
 export type DownloadOptions = {
-  onBegin?: () => void,
-  onProgress?: (T: ProgressEvent) => void,
-  onFinish?: () => void
+  onBegin?: (*) => void,
+  onProgress?: ProgressEvent => void,
+  onFinish?: (*) => void,
 };
 
 export type DownloadData = { path: string, expires: string, hosts: [string] };

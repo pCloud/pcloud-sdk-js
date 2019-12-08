@@ -7,20 +7,13 @@ import type { ApiRequestOptions, ApiResult } from "./types";
 
 let inProgress: { [id: string]: number } = {};
 let waitCallbacks: {
-  [id: string]: Array<[(T: ApiResult) => void, ApiRequestOptions]>
+  [id: string]: Array<[(T: ApiResult) => void, ApiRequestOptions]>,
 } = {};
 
 export default function ApiRequest(url: string, options: ApiRequestOptions = {}): Promise<ApiResult> {
   invariant(url.length, "`url` is required.");
 
-  let {
-    method = "get",
-    responseType = "json",
-    onProgress = () => {},
-    xhr = () => {},
-    pipe = false,
-    files = []
-  } = options;
+  let { method = "get", responseType = "json", onProgress = () => {}, xhr, pipe = false, files = [] } = options;
 
   if (method === "get" && url in inProgress) {
     if (waitCallbacks[url] === undefined) {
@@ -32,7 +25,7 @@ export default function ApiRequest(url: string, options: ApiRequestOptions = {})
         (response: ApiResult) => {
           resolve(response);
         },
-        options
+        options,
       ]);
     });
   } else {
@@ -73,7 +66,10 @@ export default function ApiRequest(url: string, options: ApiRequestOptions = {})
      */
     if (pipe) {
       return new Promise((resolve, reject) => {
-        req.pipe(pipe).on("finish", resolve).on("error", reject);
+        req
+          .pipe(pipe)
+          .on("finish", resolve)
+          .on("error", reject);
       });
     }
   }
@@ -81,7 +77,9 @@ export default function ApiRequest(url: string, options: ApiRequestOptions = {})
   // pass xhr object before calling the request
   // important for custom checking the progress of the call
   // in case of intentionally blocking operations and so on...
-  xhr(req.xhr);
+  if (xhr) {
+    xhr(req.xhr);
+  }
 
   /*
   return new Promise((resolve, reject) => {

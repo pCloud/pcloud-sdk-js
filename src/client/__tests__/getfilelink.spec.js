@@ -7,7 +7,7 @@ const mockReturnDownloadFile = {
   size: 1234566,
   expires: "Fri, 13 Jan 2017 20:59:00 +0000",
   path: "/path-to/file.jpg",
-  hosts: ["p-sf1.pcloud.com", "p-ams2.pcloud.com"]
+  hosts: ["p-sf1.pcloud.com", "p-ams2.pcloud.com"],
 };
 
 describe("getfilelink api", () => {

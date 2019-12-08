@@ -1,0 +1,23 @@
+{
+    "extends": ["eslint:recommended", "plugin:prettier/recommended"],
+    "parser": "babel-eslint",
+    "plugins": ["flowtype", "prettier", "jest"],
+    "env": {
+        "node": true,
+        "browser": true,
+        "commonjs": true,
+        "jest/globals": true,
+        "es6": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module"
+    },
+    "rules": {
+        "semi": "error",
+        "prettier/prettier": "error"
+    },
+    "globals": {
+        "ENV": "readonly"
+    }
+}

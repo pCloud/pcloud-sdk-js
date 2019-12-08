@@ -12,7 +12,7 @@ describe("ApiMethod", () => {
     });
 
     const response = await ApiMethod("listfolder", {
-      params: { auth: "testauth", folderid: 0 }
+      params: { auth: "testauth", folderid: 0 },
     });
 
     expect(response.metadata.name).toBe("/");
@@ -30,7 +30,7 @@ describe("ApiMethod", () => {
     });
 
     const response = await ApiMethod("listfolder", {
-      params: { access_token: "testauth", folderid: 1337 }
+      params: { access_token: "testauth", folderid: 1337 },
     }).catch(data => data);
 
     expect(response.result).toBe(2005);
@@ -48,7 +48,7 @@ describe("ApiMethod", () => {
 
     const result = await ApiMethod("getthumbs", {
       params: { fileid: 100, access_token: "token" },
-      responseType: "text"
+      responseType: "text",
     });
 
     expect(result).toBe("text result");

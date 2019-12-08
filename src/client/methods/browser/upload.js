@@ -8,9 +8,9 @@ export default ({ client }: MethodApi) => (file: File, folderid: number = 0, opt
   invariant(file, "`file` is required.");
   invariant(typeof file === "object", "`file` of type File must be supplied.");
 
-  const { onBegin = () => {}, onProgress = () => {}, onFinish = () => {} } = options;
+  const { onBegin, onProgress, onFinish } = options;
 
-  onBegin();
+  onBegin && onBegin();
   return client
     .api("uploadfile", {
       method: "post",
@@ -18,14 +18,14 @@ export default ({ client }: MethodApi) => (file: File, folderid: number = 0, opt
       files: [{ file: file }],
       onProgress: progress => {
         if (progress.direction === "upload") {
-          onProgress(progress);
+          onProgress && onProgress(progress);
         }
-      }
+      },
     })
     .then(({ metadata, checksums }) => {
       const response = { metadata: metadata[0], checksums: checksums[0] };
 
-      onFinish(response);
+      onFinish && onFinish(response);
       return response;
     });
 };

@@ -29,13 +29,13 @@ export default ({ client }: MethodApi) => (
         fileids: fileids.join(","),
         type: thumbType,
         size: size,
-        crop: 1
+        crop: 1,
       },
       onProgress: (progress: any) => {
         const progressThumbs = parser(progress.currentTarget.responseText);
         thumbs = thumbs.concat(progressThumbs);
         progressThumbs.forEach(receiveThumb);
-      }
+      },
     })
     .then(response => {
       const responseThumbs = parser(response);

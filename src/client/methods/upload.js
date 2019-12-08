@@ -9,9 +9,9 @@ export default ({ client }: MethodApi) => (file: string, folderid: number = 0, o
   invariant(typeof file === "string", "`file` must be supplied");
   invariant(require("fs").existsSync(file), `File: ${file} is not accessible.`);
 
-  const { onBegin = () => {}, onProgress = () => {}, onFinish = () => {} } = options;
+  const { onBegin, onProgress, onFinish } = options;
 
-  onBegin();
+  onBegin && onBegin();
   return client
     .api("uploadfile", {
       method: "post",
@@ -19,14 +19,14 @@ export default ({ client }: MethodApi) => (file: string, folderid: number = 0, o
       files: [{ file: file }],
       onProgress: progress => {
         if (progress.direction === "upload") {
-          onProgress(progress);
+          onProgress && onProgress(progress);
         }
-      }
+      },
     })
     .then(response => {
       const ret = apiResponseToReturn(response);
 
-      onFinish(ret);
+      onFinish && onFinish(ret);
       return ret;
     });
 };
