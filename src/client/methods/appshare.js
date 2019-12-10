@@ -2,7 +2,6 @@
 
 import invariant from "invariant";
 import type { MethodApi } from "../types";
-import { isEmail } from "../../utils";
 
 const permissionsMap = { view: 0, edit: 7 };
 
@@ -29,8 +28,8 @@ export default ({ client, type }: MethodApi) => (
         folderid: folderid,
         permissions: permissionsMap[access],
         userid: userid,
-        client_id: clientid
-      }
+        client_id: clientid,
+      },
     })
     .then(() => true);
 };

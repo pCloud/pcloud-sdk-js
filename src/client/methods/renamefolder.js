@@ -13,8 +13,8 @@ export default ({ client }: MethodApi) => (folderid: number, toname: string): Pr
     .api("renamefolder", {
       params: {
         folderid: folderid,
-        toname: toname
-      }
+        toname: toname,
+      },
     })
     .then(response => response.metadata);
 };

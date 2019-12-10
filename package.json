@@ -22,20 +22,14 @@
     "watch-web": "./node_modules/.bin/webpack -w",
     "build-node": "./node_modules/.bin/babel src --out-dir lib",
     "watch-node": "./node_modules/.bin/babel -w src --out-dir lib",
-    "prepublish": "npm run build-node && npm run build-web",
+    "prepublishOnly": "npm run build-node && npm run build-web",
     "start": "node server.js",
     "lint": "eslint src",
     "flow": "flow",
     "test": "npm run test-only",
     "test-only": "jest --coverage --colors",
     "test:watch": "jest --colors --watch",
-    "prettier": "prettier --print-width 120 \"src/**/*.js\" --write",
     "precommit": "lint-staged"
-  },
-  "babel": {
-    "presets": [
-      "es2015"
-    ]
   },
   "engineStrict": true,
   "engines": {
@@ -51,6 +45,7 @@
   "devDependencies": {
     "babel": "^6.5.2",
     "babel-cli": "^6.18.0",
+    "babel-eslint": "^10.0.3",
     "babel-jest": "^17.0.2",
     "babel-loader": "^6.2.8",
     "babel-plugin-transform-async-generator-functions": "^6.17.0",
@@ -60,11 +55,18 @@
     "babel-plugin-transform-object-rest-spread": "^6.19.0",
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-stage-3": "^6.17.0",
+    "eslint": "^6.7.2",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-flowtype": "^4.5.2",
+    "eslint-plugin-jest": "^23.1.1",
+    "eslint-plugin-prettier": "^3.1.1",
     "express": "^4.16.4",
     "fetch-mock": "^5.5.0",
-    "flow-bin": "^0.52.0",
+    "flow-bin": "^0.113.0",
     "flow-coverage-report": "^0.2.0",
+    "husky": "^3.1.0",
     "jest": "^20.0.4",
+    "lint-staged": "^9.5.0",
     "multiparty": "^4.2.1",
     "openurl": "^1.1.1",
     "prettier": "^1.14.3",
@@ -94,10 +96,14 @@
       "ENV": "node"
     }
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "lint-staged": {
     "*.js": [
-      "prettier",
-      "git add"
+      "eslint"
     ]
   }
 }

@@ -27,7 +27,7 @@ describe("appshare", () => {
       client_id: "clientid",
       folderid: 100,
       permissions: 7,
-      userid: 1
+      userid: 1,
     });
 
     expect(apiMethod.mock.calls[0][1].params).toMatchSnapshot();

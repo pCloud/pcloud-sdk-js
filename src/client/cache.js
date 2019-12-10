@@ -2,11 +2,11 @@
 
 type CacheObject = {
   expiry: number,
-  data: mixed
+  data: mixed,
 };
 
 type CacheStore = {
-  [id: string]: CacheObject
+  [id: string]: CacheObject,
 };
 
 type Cache = {
@@ -18,7 +18,7 @@ type Cache = {
   expire: string => void,
   expireMatch: string => void,
   clean: () => void,
-  cleanAll: () => void
+  cleanAll: () => void,
 };
 
 const defaultExpiry: number = 30;
@@ -31,13 +31,13 @@ export default function createCache(): Cache {
     var n = 0;
     if (arguments.length > 1 && typeof arguments[1] === "object") {
       for (n in arguments[1]) {
-        if (arguments[1].hasOwnProperty(n)) {
+        if (Object.prototype.hasOwnProperty.call(arguments[1], n)) {
           cacheid += "-" + n + ":" + arguments[1][n];
         }
       }
     } else {
       for (n = 1; n < arguments.length; ++n) {
-        if (arguments.hasOwnProperty(n)) {
+        if (Object.prototype.hasOwnProperty.call(arguments, n)) {
           cacheid += "-" + arguments[n];
         }
       }
@@ -46,11 +46,12 @@ export default function createCache(): Cache {
   }
 
   function get(key: string): mixed | false {
+    clean();
+
     if (has(key)) {
       return cacheObj[key].data;
     }
 
-    clean();
     return false;
   }
 
@@ -69,7 +70,7 @@ export default function createCache(): Cache {
   function set(key: string, val: mixed, expiry?: number = defaultExpiry): void {
     cacheObj[key] = {
       expiry: Date.now() + expiry * 1000,
-      data: val
+      data: val,
     };
   }
 
@@ -110,7 +111,7 @@ export default function createCache(): Cache {
     expire,
     expireMatch,
     clean,
-    cleanAll
+    cleanAll,
   };
 }
 

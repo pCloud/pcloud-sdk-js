@@ -26,7 +26,7 @@ describe("sharefolder", () => {
       auth: "testauth",
       folderid: 100,
       permissions: 0,
-      mail: "test@fakemail.com"
+      mail: "test@fakemail.com",
     });
   });
 

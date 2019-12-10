@@ -1,6 +1,13 @@
 language: node_js
-node_js:
-  - "4"
-  - "5"
-  - "6"
-  - "node"
+node_js: "10"
+
+cache: yarn
+
+before_install:
+  - npm install -g yarn
+install: yarn install --frozen-lockfile
+
+script:
+  - yarn flow
+  - yarn lint
+  - yarn test

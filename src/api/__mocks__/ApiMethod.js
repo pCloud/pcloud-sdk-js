@@ -1,26 +1,29 @@
 /* @flow */
 
 /**
-* Mock for api/method
-*
-* Exports the actual mock (apiMethod) as default and:
-*  on(match: (method, options) => boolean, respond: (method, params) => data, onFire?: () => void)
-*  one: same as on, but handler is removed upon first usage
-*
-* helpers that enhance response for use in the respond function
-* success(data: mixed) => success api payload
-* error(result: number, error: string) => error api payload
-* httpError(code: number, error: string) => network error payload
-*
-*/
-type matchFunc = (method: string, options: {}) => boolean;
-type respondFunc = (method: string, options: {}) => any;
-type onFire = () => void | null;
+ * Mock for api/method
+ *
+ * Exports the actual mock (apiMethod) as default and:
+ *  on(match: (method, options) => boolean, respond: (method, params) => data, onFire?: () => void)
+ *  one: same as on, but handler is removed upon first usage
+ *
+ * helpers that enhance response for use in the respond function
+ * success(data: mixed) => success api payload
+ * error(result: number, error: string) => error api payload
+ * httpError(code: number, error: string) => network error payload
+ *
+ */
+
+type obj = { [mixed]: mixed };
+type matchFunc = (method: string, options: obj) => boolean;
+type respondFunc = (method: string, options: obj) => any;
+type onFire = (method: string, options: obj) => void | null;
 
 import type { ApiError } from "../types";
 
 let handlers: Array<[matchFunc, respondFunc, onFire]> = [];
 
+// $FlowExpectError
 export default jest.fn((method: string, options: {}) => {
   let promised = null;
 
@@ -59,18 +62,18 @@ export function one(match: matchFunc, respond: respondFunc, onFire: onFire) {
       return isMatch;
     },
     respond,
-    onFire
+    onFire,
   ];
 
   handlers.push(me);
 }
 
 export function text(data: string) {
-  return (method: string) => Promise.resolve(data);
+  return () => Promise.resolve(data);
 }
 
 export function success(data: any) {
-  return (method: string) => {
+  return () => {
     data.result = 0;
 
     return Promise.resolve(data);
@@ -78,7 +81,7 @@ export function success(data: any) {
 }
 
 export function error(result: number, error: string) {
-  return (method: string, options: { onError?: () => void }) => {
+  return (method: string, options: { onError?: ApiError => void }) => {
     const errorObj: ApiError = { result: result, error: error };
 
     if (options.onError) {

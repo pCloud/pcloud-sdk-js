@@ -64,10 +64,10 @@ export default function createClient(token: string, type: ClientType = "oauth", 
   let pcloudMethod;
 
   for (let method in methods) {
-    if (methods.hasOwnProperty(method)) {
+    if (Object.prototype.hasOwnProperty.call(methods, method)) {
       let baseMethod: ClientMethod = methods[method];
 
-      pcloudMethod = baseMethod({ client, setToken, type }, type);
+      pcloudMethod = baseMethod({ client, setToken, type });
 
       if (typeof pcloudMethod === "function") {
         client[method] = pcloudMethod;

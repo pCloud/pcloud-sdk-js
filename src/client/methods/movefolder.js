@@ -12,8 +12,8 @@ export default ({ client }: MethodApi) => (folderid: number, tofolderid: number)
     .api("renamefolder", {
       params: {
         folderid: folderid,
-        tofolderid: tofolderid
-      }
+        tofolderid: tofolderid,
+      },
     })
     .then(response => response.metadata);
 };

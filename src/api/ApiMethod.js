@@ -21,7 +21,7 @@ export default function ApiMethod(method: string, options: ApiMethodOptions = {}
     protocol: apiProtocol,
     host: apiServer,
     pathname: method,
-    query: params
+    query: params,
   });
 
   if (requestParams.responseType === undefined) {

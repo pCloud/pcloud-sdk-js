@@ -17,16 +17,16 @@ const mockReturnUploadFile = {
       ismine: true,
       size: 2384712,
       parentfolderid: 378855472,
-      icon: "image"
-    }
+      icon: "image",
+    },
   ],
   checksums: [
     {
       sha1: "b13677bfd33856de6a6e0d9d9d15223d3016f254",
-      md5: "ea7965e4a1b362faad53deda49a5d1f6"
-    }
+      md5: "ea7965e4a1b362faad53deda49a5d1f6",
+    },
   ],
-  fileids: [1993980510]
+  fileids: [1993980510],
 };
 
 describe("upload trough api", () => {

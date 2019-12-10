@@ -13,14 +13,14 @@ type oAuthOptions = {
   client_id: string,
   redirect_uri: string,
   response_type: "token" | "code",
-  receiveToken: any => void
+  receiveToken: any => void,
 };
 
 type oAuthPollOptions = {
   client_id: string,
   response_type: "poll_token",
   receiveToken: string => void,
-  onError: Error => void
+  onError: Error => void,
 };
 
 function buildOauthUrl(query) {
@@ -28,17 +28,12 @@ function buildOauthUrl(query) {
     protocol: protocol,
     hostname: host,
     pathname: path,
-    query: query
+    query: query,
   });
 }
 
 function initOauthToken(options: oAuthOptions) {
-  const {
-    client_id = null,
-    redirect_uri = null,
-    receiveToken = null,
-    response_type = "token"
-  } = options;
+  const { client_id = null, redirect_uri = null, receiveToken = null, response_type = "token" } = options;
 
   invariant(client_id, "`client_id` is required.");
   invariant(redirect_uri, "`redirect_uri` is required.");
@@ -47,11 +42,11 @@ function initOauthToken(options: oAuthOptions) {
   const oauthUrl = buildOauthUrl({
     redirect_uri: redirect_uri,
     client_id: client_id,
-    response_type: response_type
+    response_type: response_type,
   });
 
   window.open(oauthUrl, "oauth", "width=680,height=535");
-  window.__setPcloudToken = function (token) {
+  window.__setPcloudToken = function(token) {
     receiveToken(token);
     delete window.__setPcloudToken;
   };
@@ -68,12 +63,12 @@ function initOauthPollToken(options: oAuthPollOptions) {
   const oauthUrl = buildOauthUrl({
     request_id: request_id,
     client_id: client_id,
-    response_type: "poll_token"
+    response_type: "poll_token",
   });
   window.open(oauthUrl, "", "width=680,height=535");
 
   ApiMethod("oauth2_token", {
-    params: { client_id: client_id, request_id: request_id }
+    params: { client_id: client_id, request_id: request_id },
   })
     .then(res => {
       receiveToken(res.access_token);
@@ -86,15 +81,18 @@ function initOauthPollToken(options: oAuthPollOptions) {
 function popup() {
   const matchToken = location.hash.match(/access_token=([^&]+)/);
   const matchCode = location.search.match(/code=([^&]+)/);
-  const token = matchToken ? matchToken[1] : matchCode[1];
 
-  window.opener.__setPcloudToken(token);
-  window.close();
+  const token = matchToken ? matchToken[1] : matchCode ? matchCode[1] : null;
+
+  if (token) {
+    window.opener.__setPcloudToken(token);
+    window.close();
+  }
 }
 
 function getTokenFromCode(code: string, client_id: string, app_secret: string) {
   return ApiMethod("oauth2_token", {
-    params: { client_id: client_id, client_secret: app_secret, code: code }
+    params: { client_id: client_id, client_secret: app_secret, code: code },
   });
 }
 
@@ -102,5 +100,5 @@ export default {
   initOauthToken,
   initOauthPollToken,
   popup,
-  getTokenFromCode
+  getTokenFromCode,
 };

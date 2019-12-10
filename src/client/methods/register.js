@@ -20,7 +20,7 @@ export default ({ client }: MethodApi) => (
     password: password,
     getauth: 1,
     logout: 1,
-    termsaccepted: "yes"
+    termsaccepted: "yes",
   };
 
   if (options.invite) {

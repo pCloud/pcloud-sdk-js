@@ -7,25 +7,31 @@ import fs from "fs";
 import path from "path";
 
 export default () => (filename: string, options: DownloadOptions = {}) => (url: string): Promise<FileLocal> => {
-  const { onBegin = () => {}, onProgress = () => {}, onFinish = () => {} } = options;
+  if (options.onBegin) {
+    options.onBegin();
+  }
 
-  onBegin();
   return ApiRequest(url, {
     type: "arraybuffer",
     pipe: fs.createWriteStream(filename),
     onProgress: progress => {
       if (progress.direction === "download") {
-        onProgress(progress);
+        if (options.onProgress) {
+          options.onProgress(progress);
+        }
       }
-    }
+    },
   }).then(() => {
     const file: FileLocal = {
       path: filename,
       name: path.basename(filename),
-      size: fs.statSync(filename).size
+      size: fs.statSync(filename).size,
     };
 
-    onFinish(file);
+    if (options.onFinish) {
+      options.onFinish(file);
+    }
+
     return file;
   });
 };

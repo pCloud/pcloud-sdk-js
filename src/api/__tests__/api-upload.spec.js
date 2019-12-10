@@ -20,9 +20,9 @@ describe("upload trough api", () => {
           files: [
             {
               name: "other-image.jpg",
-              file: path.resolve(__dirname, "../../../examples/node/files/image.jpg")
-            }
-          ]
+              file: path.resolve(__dirname, "../../../examples/node/files/image.jpg"),
+            },
+          ],
         });
 
         expect(result.files.length).toBe(1);

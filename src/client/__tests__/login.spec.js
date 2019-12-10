@@ -26,8 +26,8 @@ describe("login", () => {
         getauth: 1,
         logout: 1,
         password: "password",
-        username: "mail@mail.com"
-      }
+        username: "mail@mail.com",
+      },
     });
 
     const folder = await listfolder(0);
@@ -40,8 +40,8 @@ describe("login", () => {
       apiServer: "api.pcloud.com",
       params: {
         auth: "acccess_token_string",
-        folderid: 0
-      }
+        folderid: 0,
+      },
     });
   });
 });

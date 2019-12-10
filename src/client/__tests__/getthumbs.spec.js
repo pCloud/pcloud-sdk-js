@@ -8,7 +8,7 @@ const image = "data:image/jpeg;base64,/9j/4AAQSkZ";
 
 const exampleResult = ["2412453536|0|32x32|" + image, "3|6001|0"];
 
-one((method, { params }) => method === "getthumbs", text(exampleResult.join("\n") + "\n"), getThumbsSpy);
+one(method => method === "getthumbs", text(exampleResult.join("\n") + "\n"), getThumbsSpy);
 
 import createClient from "../createClient";
 const { getthumbs } = createClient("testauth", "oauth", false);
@@ -31,7 +31,7 @@ describe("getthumbs", () => {
       crop: 1,
       fileids: "1,2",
       size: "32x32",
-      type: "auto"
+      type: "auto",
     });
 
     expect(receiveThumbSpy).toHaveBeenCalledTimes(2);

@@ -8,13 +8,13 @@ const mockReturnListfolder = {
     name: "/",
     folderid: 0,
     isfolder: true,
-    icon: 20
-  }
+    icon: 20,
+  },
 };
 
 const mockReturnFolderNotFound = {
   result: 2005,
-  error: "Directory does not exist."
+  error: "Directory does not exist.",
 };
 
 describe("listfolder", () => {
@@ -40,7 +40,7 @@ describe("listfolder", () => {
       query = q;
     });
 
-    const response = await listfolder(0, { iconformat: 'id' });
+    const response = await listfolder(0, { iconformat: "id" });
     expect(response.name).toBe("/");
     expect(response.folderid).toBe(0);
     expect(response.isfolder).toBe(true);

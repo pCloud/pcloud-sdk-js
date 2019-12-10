@@ -17,8 +17,8 @@ const mockReturnCreatefolder = {
     icon: "folder",
     isfolder: true,
     parentfolderid: 0,
-    folderid: 111155556666
-  }
+    folderid: 111155556666,
+  },
 };
 
 var createdMock = jest.fn();
@@ -60,7 +60,7 @@ describe("throws error false when unsuccessful", async () => {
     expect(apiMethod.mock.calls[1][1].params).toEqual({
       access_token: "testauth",
       name: "folder name",
-      folderid: 1337
+      folderid: 1337,
     });
   });
 });

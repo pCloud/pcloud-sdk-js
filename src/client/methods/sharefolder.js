@@ -31,7 +31,7 @@ export default ({ client }: MethodApi) => (
 
   return client
     .api("sharefolder", {
-      params: params
+      params: params,
     })
     .then(() => true);
 };
