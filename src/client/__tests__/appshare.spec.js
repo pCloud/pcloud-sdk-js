@@ -1,5 +1,6 @@
-jest.mock("../../api/ApiMethod");
 import apiMethod, { on, one, success, error } from "../../api/ApiMethod";
+
+jest.mock("../../api/ApiMethod");
 
 var shareSpy = jest.fn();
 var cannotShareSpy = jest.fn();
