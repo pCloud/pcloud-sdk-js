@@ -1,5 +1,7 @@
-jest.mock("../../api/ApiMethod");
 import apiMethod, { on, one, success, error } from "../../api/ApiMethod";
+import createClient from "../createClient";
+
+jest.mock("../../api/ApiMethod");
 
 var gotProxyServer = jest.fn();
 var receivedNetworkError = jest.fn();
@@ -17,10 +19,11 @@ on(
   retried
 );
 
-import createClient from "../createClient";
 const { listfolder, setupProxy } = createClient("testauth", "oauth", false);
 
-beforeAll(done => setupProxy().then(done));
+beforeAll(async () => {
+  await setupProxy();
+});
 
 describe("client, proxy", () => {
   it("sets proxy, recovers on http error and retries the call", async () => {

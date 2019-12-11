@@ -49,7 +49,7 @@ describe("createfolder", () => {
   });
 });
 
-describe("throws error false when unsuccessful", async () => {
+describe("throws error false when unsuccessful", () => {
   it("handles the error correctly", async () => {
     const response = await createfolder("folder name", 1337).catch(error => error);
 
