@@ -3,6 +3,7 @@
   "version": "1.4.3",
   "description": "pCloud's Javascript SDK",
   "main": "lib/index.js",
+  "types": "./typings/index.d.ts",
   "browser": {
     "./lib/client/methods/download.js": "./lib/client/methods/browser/download.js",
     "./lib/client/methods/upload.js": "./lib/client/methods/browser/upload.js",
