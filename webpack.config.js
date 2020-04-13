@@ -7,19 +7,30 @@ module.exports = {
     filename: "pcloudsdk.js",
     library: "pCloudSdk",
     libraryTarget: "umd",
-    umdNamedDefine: true
+    umdNamedDefine: true,
   },
   devtool: "source-map",
+  mode: "production",
   module: {
-    preLoaders: [ { test: /\.js$/, loader: "source-map-loader" } ],
-    loaders: [ { test: /\.js$/, loader: "babel-loader" } ]
+    rules: [
+      {
+        test: /\.js$/,
+        enforce: "pre",
+        loader: "source-map-loader",
+      },
+      {
+        test: /\.js$/,
+        loader: "babel-loader",
+      },
+    ],
   },
-  resolve: { packageAlias: "browser" },
+  resolve: { aliasFields: ["browser"] },
+  optimization: {
+    minimize: true,
+  },
   plugins: [
-    new webpack.optimize.UglifyJsPlugin(),
-    new webpack.optimize.DedupePlugin(),
     new webpack.DefinePlugin({
-      ENV: JSON.stringify("web")
-    })
-  ]
+      ENV: JSON.stringify("web"),
+    }),
+  ],
 };
