@@ -1,6 +1,6 @@
 /* @flow */
 
-import "./env";
+require("./env");
 
 module.exports = {
   createClient: require("./client/createClient").default,
