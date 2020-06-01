@@ -14,8 +14,8 @@ export default ({ client }: MethodApi) => (
     typeof fileids === "object" && "length" in fileids && fileids.length,
     "`fileids` is required, must be array of numbers."
   );
-  invariant(["auto", "png", "jpg"].indexOf(thumbType) !== 1, 'thumbType must be one of: "auto", "png", "jpg".');
-  invariant(["32x32", "120x120"].indexOf(size) !== 1, 'size must be one of: "32x32", "120x120".');
+  invariant(["auto", "png", "jpg"].indexOf(thumbType) !== -1, 'thumbType must be one of: "auto", "png", "jpg".');
+  invariant(["32x32", "120x120"].indexOf(size) !== -1, 'size must be one of: "32x32", "120x120".');
   invariant(receiveThumb, "`receiveThumb` is required.");
   invariant(typeof receiveThumb === "function", "`receiveThumb` must be a function.");
 
