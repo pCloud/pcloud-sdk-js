@@ -53,6 +53,7 @@
     var clientid = "p1WznE2dEPm";
 
     var access_token = false;
+    var locationid = "";
     var client = false;
     var clientUserId = false;
 
@@ -105,9 +106,10 @@
       pCloudSdk.oauth.initOauthToken({
         client_id: clientid,
         redirect_uri: 'http://127.0.0.1:8080/oauth.html',
-        receiveToken: function(token) {
-          console.log(token);
+        receiveToken: function(token, id) {
+          console.log(token, id);
           access_token = token;
+          locationid = id || 1;
           client = pCloudSdk.createClient(token);
 
           client.userinfo().then(function (userinfo) {

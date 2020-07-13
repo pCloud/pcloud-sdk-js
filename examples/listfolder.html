@@ -31,6 +31,7 @@
   <script>
     'use strict';
     var access_token = false;
+    var locationid = "";
     var client = false;
 
     function children(metadata) {
@@ -95,9 +96,10 @@
       return client.listfolder(0).then(children).then(map(name));
     }
 
-    function receiveTokenCb(token) {
-      console.log(token);
+    function receiveTokenCb(token, id) {
+      console.log(token, id);
       access_token = token;
+      locationid = id || 1;
       client = pCloudSdk.createClient(token);
 
       folderSize(0).then((a) => {
@@ -111,7 +113,7 @@
     // Oauth authenticate with redirect uri
     el('gettoken-redirect').addEventListener('click', function (e) {
       pCloudSdk.oauth.initOauthToken({
-        client_id: 'BJpmGFpuj3S',
+        client_id: '3dunsTvYJsu',
         redirect_uri: 'http://127.0.0.1:8080/oauth.html',
         receiveToken: receiveTokenCb,
         onError: err => console.log(err)
@@ -121,7 +123,7 @@
     // Oauth authenticate without redirect uri
     el('gettoken-poll').addEventListener('click', function (e) {
       pCloudSdk.oauth.initOauthPollToken({
-        client_id: 'BJpmGFpuj3S',
+        client_id: '3dunsTvYJsu',
         receiveToken: receiveTokenCb,
         onError: err => console.log(err)
       });

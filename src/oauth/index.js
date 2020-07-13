@@ -45,9 +45,9 @@ function initOauthToken(options: oAuthOptions) {
     response_type: response_type,
   });
 
-  window.open(oauthUrl, "oauth", "width=680,height=535");
-  window.__setPcloudToken = function(token) {
-    receiveToken(token);
+  window.open(oauthUrl, "oauth", "width=680,height=700");
+  window.__setPcloudToken = function(token, locationid) {
+    receiveToken(token, locationid);
     delete window.__setPcloudToken;
   };
 }
@@ -65,13 +65,14 @@ function initOauthPollToken(options: oAuthPollOptions) {
     client_id: client_id,
     response_type: "poll_token",
   });
-  window.open(oauthUrl, "", "width=680,height=535");
+  window.open(oauthUrl, "", "width=680,height=700");
 
   ApiMethod("oauth2_token", {
-    params: { client_id: client_id, request_id: request_id },
+    params: { client_id: client_id, request_id: request_id, apiServer: "eapi.pcloud.com" },
   })
     .then(res => {
-      receiveToken(res.access_token);
+      console.log("oauth2_token res>>>>>>>>>>", res)
+      receiveToken(res.access_token, res.locationid);
     })
     .catch(err => {
       onError(err);
@@ -81,11 +82,12 @@ function initOauthPollToken(options: oAuthPollOptions) {
 function popup() {
   const matchToken = location.hash.match(/access_token=([^&]+)/);
   const matchCode = location.search.match(/code=([^&]+)/);
-
+  const locationIdMatch = location.hash.match(/locationid=([^&]+)/);
+  const locationid = locationIdMatch ? locationIdMatch[1] : null;
   const token = matchToken ? matchToken[1] : matchCode ? matchCode[1] : null;
 
   if (token) {
-    window.opener.__setPcloudToken(token);
+    window.opener.__setPcloudToken(token, locationid);
     window.close();
   }
 }
