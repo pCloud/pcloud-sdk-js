@@ -68,15 +68,26 @@ function initOauthPollToken(options: oAuthPollOptions) {
   window.open(oauthUrl, "", "width=680,height=700");
 
   ApiMethod("oauth2_token", {
-    params: { client_id: client_id, request_id: request_id, apiServer: "eapi.pcloud.com" },
+    apiServer: "eapi.pcloud.com",
+    params: { client_id: client_id, request_id: request_id },
   })
     .then(res => {
-      console.log("oauth2_token res>>>>>>>>>>", res)
       receiveToken(res.access_token, res.locationid);
     })
     .catch(err => {
       onError(err);
     });
+
+    ApiMethod("oauth2_token", {
+      apiServer: "api.pcloud.com",
+      params: { client_id: client_id, request_id: request_id },
+    })
+      .then(res => {
+        receiveToken(res.access_token, res.locationid);
+      })
+      .catch(err => {
+        onError(err);
+      });
 }
 
 function popup() {
