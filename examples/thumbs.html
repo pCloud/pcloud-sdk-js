@@ -21,6 +21,7 @@
   <script>
     'use strict';
     var access_token = false;
+    var apiServer = "";
     var client = false;
 
     function children(metadata) {
@@ -99,16 +100,17 @@
 
     el('gettoken').addEventListener('click', function(e) {
       pCloudSdk.oauth.initOauthToken({
-        client_id: 'p1WznE2dEPm',
+        client_id: 'mQ35NJTiuQu',
         redirect_uri: 'http://127.0.0.1:8080/oauth.html',
-        receiveToken: function(token) {
-          console.log(token);
+        receiveToken: function(token, id) {
+          console.log(token, id);
           access_token = token;
+          locationid = id || 1;
           client = pCloudSdk.createClient(token);
 
           imagesInFolder(0).then(a => console.log('Items', a));
           imagesInFolder(0).then(fileids => {
-            client.getthumbs(fileids, thumb => console.log(thumb), 'auto', '32x32', (thumb) => console.log('got thumb', thumb))
+            client.getthumbs(fileids, thumb => console.log(thumb), 'auto', '120x120', (thumb) => console.log('got thumb', thumb))
               .then(stuff => console.log('==', stuff))
           });
         }

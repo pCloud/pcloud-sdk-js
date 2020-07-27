@@ -21,6 +21,7 @@
   <script>
     'use strict';
     var access_token = false;
+    var locationid = "";
     var client = false;
 
     function children(metadata) {
@@ -89,9 +90,10 @@
       pCloudSdk.oauth.initOauthToken({
         client_id: 'p1WznE2dEPm',
         redirect_uri: 'http://' + location.host + '/oauth.html',
-        receiveToken: function(token) {
-          console.log(token);
+        receiveToken: function(token, id) {
+          console.log(token, id);
           access_token = token;
+          locationid = id || 1;
           client = pCloudSdk.createClient(token);
 
           firstFile(0).then(file => {

@@ -5,8 +5,12 @@ import invariant from "invariant";
 import { isApiMethod, isAuthMethod } from "../utils";
 import ApiRequest from "./ApiRequest";
 import type { ApiResult, ApiMethodOptions } from "./types";
-const defaultApiServer = "api.pcloud.com";
+const defaultApiServer = "eapi.pcloud.com";
 
+const locations = {
+  1: "api.pcloud.com",
+  2: "eapi.pcloud.com",
+};
 export default function ApiMethod(method: string, options: ApiMethodOptions = {}): Promise<ApiResult> {
   const { apiServer = defaultApiServer, apiProtocol = "https", params = {}, ...requestParams } = options;
 
@@ -19,7 +23,7 @@ export default function ApiMethod(method: string, options: ApiMethodOptions = {}
 
   const requestUrl: string = url.format({
     protocol: apiProtocol,
-    host: apiServer,
+    host: locations[locationid] || apiServer,
     pathname: method,
     query: params,
   });

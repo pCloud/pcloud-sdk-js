@@ -28,6 +28,7 @@
   <script>
     'use strict';
     var access_token = false;
+    var locationid = "";
     var client = false;
     el("file").addEventListener('click', function(e) {
       if (!client) {
@@ -56,9 +57,10 @@
       pCloudSdk.oauth.initOauthToken({
         client_id: 'p1WznE2dEPm',
         redirect_uri: 'http://127.0.0.1:8080/oauth.html',
-        receiveToken: function(token) {
-          console.log(token);
+        receiveToken: function(token, id) {
+          console.log(token, id);
           access_token = token;
+          locationid = id || 1;
           client = pCloudSdk.createClient(token);
           el('file').disabled = false;
         }

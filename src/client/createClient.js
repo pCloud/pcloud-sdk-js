@@ -20,10 +20,9 @@ export default function createClient(token: string, type: ClientType = "oauth", 
 
   // Local Params
   // apiServer, token, type
-  let apiServer = defaultApiServer;
 
   function initialOptions(method: string) {
-    let options = { apiServer: apiServer, params: {} };
+    let options = { params: {} };
 
     if (isAuthMethod(method) && token) {
       options.params["oauth" === type ? "access_token" : "auth"] = token;
@@ -39,7 +38,6 @@ export default function createClient(token: string, type: ClientType = "oauth", 
       if (error.result === 500 && apiServer !== defaultApiServer) {
         // reset API server
         apiServer = defaultApiServer;
-
         // retry
         return api(method, options);
       } else {
