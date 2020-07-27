@@ -1,6 +1,6 @@
 {
   "name": "pcloud-sdk-js",
-  "version": "1.4.4",
+  "version": "2.0.0",
   "description": "pCloud's Javascript SDK",
   "main": "lib/index.js",
   "types": "./typings/index.d.ts",
@@ -75,6 +75,7 @@
     "source-map-loader": "^0.2.4",
     "superagent-mocker": "^0.5.2",
     "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.11",
     "webpack-dev-middleware": "^3.7.2"
   },
   "repository": {
