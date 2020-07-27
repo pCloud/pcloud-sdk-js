@@ -36,6 +36,7 @@ export const pCloudApiMethods: { [id: string]: pCloudApiMethod } = {
   changeshare: { auth: true, type: "write" },
   sharefolder: { auth: true, type: "write" },
   copyfile: { auth: true, type: "write" },
+  checksumfile: { auth: true, type: "read" },
   copyfolder: { auth: true, type: "write" },
   listpublinks: { auth: true, type: "read" },
   getfilepublink: { auth: true, type: "write" },
