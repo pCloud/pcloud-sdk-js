@@ -7,6 +7,10 @@ export function isEmail(email: string): boolean {
   return re.test(email);
 }
 
+export function isValidLocation(locations: string[], apiServer: string): boolean {
+  return apiServer === locations[1] || apiServer === locations[2];
+}
+
 export function fileext(filename: string): string {
   return filename.split(".").pop();
 }
