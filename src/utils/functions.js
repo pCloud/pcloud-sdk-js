@@ -7,7 +7,7 @@ export function isEmail(email: string): boolean {
   return re.test(email);
 }
 
-export function isValidLocation(locations: string[], apiServer: string): boolean {
+export function isValidServer(locations: string[], apiServer: string): boolean {
   return apiServer === locations[1] || apiServer === locations[2];
 }
 
