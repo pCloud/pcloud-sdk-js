@@ -2,17 +2,23 @@
 
 import url from "url";
 import invariant from "invariant";
-import { isApiMethod, isAuthMethod } from "../utils";
+import { isApiMethod, isAuthMethod, isValidServer } from "../utils";
 import ApiRequest from "./ApiRequest";
 import type { ApiResult, ApiMethodOptions } from "./types";
-const defaultApiServer = "eapi.pcloud.com";
 
 const locations = {
   1: "api.pcloud.com",
   2: "eapi.pcloud.com",
 };
+const defaultApiServer = "eapi.pcloud.com";
+
 export default function ApiMethod(method: string, options: ApiMethodOptions = {}): Promise<ApiResult> {
+
+  
   const { apiServer = defaultApiServer, apiProtocol = "https", params = {}, ...requestParams } = options;
+
+  // eslint-disable-next-line no-implicit-coercion
+  invariant(isValidServer(locations, apiServer), "apiServer `" + apiServer + "` is not a valid pCloud server")
 
   invariant(isApiMethod(method), "Method `" + method + "` is not pCloud API method.");
 
@@ -23,7 +29,7 @@ export default function ApiMethod(method: string, options: ApiMethodOptions = {}
 
   const requestUrl: string = url.format({
     protocol: apiProtocol,
-    host: locations[locationid] || apiServer,
+    host: apiServer,
     pathname: method,
     query: params,
   });
