@@ -20,10 +20,10 @@ export default function ApiMethod(method: string, options: ApiMethodOptions = {}
     !isAuthMethod(method) || "auth" in params || "access_token" in params || "username" in params,
     "`auth` must be present for methods that require authentication."
   );
-
+  
   const requestUrl: string = url.format({
     protocol: apiProtocol,
-    host: locations[locationid] || apiServer,
+    host: params.hostname || apiServer,
     pathname: method,
     query: params,
   });
