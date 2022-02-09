@@ -1,4 +1,5 @@
 <html>
+
 <head>
   <title>pCloud SDK: Examples / List folder</title>
   <style>
@@ -6,41 +7,54 @@
       margin: 0;
       padding: 20px;
     }
-    input {
-      height: 28px;
-      line-height: 28px;
-      padding: 0 0 0 4px;
-    }
-    input, button {
-      margin: 0 0 10px 0;
-    }
-    .result {
-      width: 300px;
-      height: 50px;
+
+    #login {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 185px;
+      height: 40px;
+      padding: 20px;
+      border-radius: 7px;
+      background-color: #17bed0;
+      border-color: transparent;
+      color: #fff;
+      cursor: pointer;
+      font-size: 14px;
+      font-family: Roboto, Arial, Tahoma, Helvetica, sans-serif !important;
+      box-sizing: border-box;
     }
   </style>
 </head>
+
 <body>
 
   <div>
-    <input type="text" name="username" placeholder="Email" id="email" value="email@email.com"><br>
-    <input type="password" name="password" placeholder="Password" id="password" value=""><br>
-    <button id="login">Login</button>
-
-    <div class="result"></div>
+    <button id="login">Login with pCloud</button>
   </div>
 
   <script type="text/javascript" src="examples/pcloudsdk.js"></script>
   <script>
     'use strict';
+    var access_token = false;
+    var locationid = "";
     var client = false;
-    el("login").addEventListener('click', function(e) {
-      var email = el('email').value;
-      var password = el('password').value;
-      if (email && password) {
-        client = pCloudSdk.createClient(null, 'pcloud');
-        client.login(email, password).then(console.log.bind(console));
-      }
+
+    el("login").addEventListener('click', function (e) {
+      pCloudSdk.oauth.initOauthToken({
+        client_id: 'p1WznE2dEPm',
+        redirect_uri: 'http://127.0.0.1:8080/oauth.html',
+        receiveToken: function (token, id) {
+          console.log(token);
+          access_token = token;
+          locationid = id || 1;
+          client = pCloudSdk.createClient(token);
+
+          client.login().then((metadata) => {
+            console.log("userinfo", metadata);
+          });
+        }
+      });
     }, false);
 
     function el(id) {
@@ -49,4 +63,5 @@
 
   </script>
 </body>
+
 </html>
