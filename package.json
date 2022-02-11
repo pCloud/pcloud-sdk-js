@@ -29,8 +29,7 @@
     "flow": "flow",
     "test": "yarn test-only",
     "test-only": "jest --coverage --colors",
-    "test:watch": "jest --colors --watch",
-    "precommit": "lint-staged"
+    "test:watch": "jest --colors --watch"
   },
   "engineStrict": true,
   "engines": {
@@ -95,11 +94,6 @@
     "testEnvironment": "node",
     "globals": {
       "ENV": "node"
-    }
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
