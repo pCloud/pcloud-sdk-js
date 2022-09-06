@@ -1,90 +1,158 @@
 <html>
-<head>
-  <title>pCloud SDK: Examples / Download</title>
+  <head>
+    <title>pCloud SDK: Examples / Download</title>
 
-  <style>
-    #gettoken {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-    }
+    <style>
+      #ui {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+      }
 
-    #files {
-      font-size: 13px;
-      font-family: arial;
-      line-height: 17px;
-    }
-  </style>
-</head>
-<body>
+      #files {
+        font-size: 13px;
+        font-family: arial;
+        line-height: 17px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="files"></div>
 
-  <div id="files"></div>
-  <button id="gettoken">Get Token</button>
+    <div id="ui">
+      <button id="gettoken">Get Token</button><br />
+      <button id="listfiles">List Files and Folders</button><br />
+      Folder levels to recurse: <input id="maxrecurse" type="text" length="2" size="2" value="2" /><br />
+      <span style="display: none" id="havetoken">Token loaded from local storage</span><br />
+    </div>
 
-  <script src="https://code.jquery.com/jquery-3.0.0.slim.min.js"></script>
-  <script type="text/javascript" src="/examples/pcloudsdk.js"></script>
-  <script>
-    'use strict';
-    var access_token = false;
-    var locationid = "";
-    var client = false;
+    <script src="https://code.jquery.com/jquery-3.0.0.slim.min.js"></script>
+    <script type="text/javascript" src="/examples/pcloudsdk.js"></script>
+    <script>
+      "use strict";
+      /*eslint-disable camelcase */
+      /*globals pCloudSdk */
+      var access_token = false;
+      var locationid = "";
+      var client = false;
 
-    function downloadfile(fileid) {
-      client.downloadfile(1780805874, {
-        onBegin: function() {
-          console.log('Upload started.');
-        },
-        onProgress: function(progress) {
-          console.log(progress);
-        },
-        onFinish: function(uploadData) {
-          console.log(uploadData);
+      // var allFolderAccessAppClientId = "3dunsTvYJsu"; // new_APP -- All folders acccess
+      var privateAppClientId = "p1WznE2dEPm"; // pCloudSampleApp -- Private folder access
+      var client_id = privateAppClientId;
+
+      var pcloudtoken = localStorage.getItem("pcloudToken");
+      var pcloudlocationid = localStorage.getItem("pcloudLocationId");
+
+      if (pcloudtoken && pcloudlocationid) {
+        $("#havetoken").show();
+        access_token = pcloudtoken;
+        locationid = pcloudlocationid;
+
+        client = pCloudSdk.createClient(access_token);
+      }
+
+      function downloadfile(fileid) {
+        client.downloadfile(fileid, {
+          onBegin: function() {
+            console.log("download started.");
+          },
+          onProgress: function(progress) {
+            console.log("download progress", progress);
+          },
+          onFinish: function(downloadData) {
+            console.log("download complete", downloadData);
+          },
+        });
+      }
+
+      function reportErr(err) {
+        console.error(err);
+      }
+
+      function listfiles(folderid, parentFolderName, depth) {
+        if (client) {
+          var place = $("#files");
+          var parentFolderLabel = parentFolderName || "Root folder";
+          var maxdepth = parseInt($("#maxrecurse").val(), 10) || 3;
+
+          depth = depth || 1;
+
+          client.listfolder(folderid || 0).then(function(metadata) {
+            if (!depth && !metadata.contents.length && client_id === privateAppClientId) {
+              place.html(
+                "No files found. Note that private apps only have access<br />" +
+                  "to files in <tt>Files/Applications/[Application Name]</tt> and below.<br />" +
+                  "Please add files to <tt>Files/Applications/pCloudExampleApp</tt>.<br />"
+              );
+            } else {
+              var folders = [];
+              var files = [];
+
+              metadata.contents.forEach(function(item) {
+                if (item.isfolder) {
+                  folders.push(item);
+                } else {
+                  files.push(item);
+                }
+              });
+
+              files.forEach(function(file) {
+                var linkText = `${file.name} (${parentFolderLabel}) [${depth}]`;
+
+                place.append(
+                  $("<div />")
+                    .append($("<span />").text(linkText))
+                    .append(" | ")
+                    .append(
+                      $('<a href="javascript:;">Download</a>').on("click", function(e) {
+                        console.log("downloading", file.fileid);
+                        downloadfile(file.fileid);
+                      })
+                    )
+                );
+              });
+
+              folders.forEach(function(folder) {
+                console.log("it's a folder", JSON.stringify(folder, null, "  "));
+                var newDepth = depth + 1;
+
+                place.append(
+                  $("<div />").append(
+                    $("<span />").text(`Folder: ${folder.name} (Parent: ${parentFolderLabel}) [${depth}]`)
+                  )
+                );
+
+                if (depth < maxdepth) {
+                  listfiles(folder.folderid, folder.name, newDepth);
+                }
+              });
+            }
+          }, reportErr);
         }
-      });
-    }
+      }
 
-    function listfiles() {
-      var place = $('#files');
-      client.listfolder(0).then(function(metadata) {
-        metadata.contents.forEach(function(item, n) {
-          if (!item.isfolder) {
-            place.append(
-              $('<div />')
-                .append($('<span />').text(item.name))
-                .append(' | ')
-                .append(
-                  $('<a href="javascript:;">Download</a>')
-                    .on('click', function(e) {
-                      console.log('downloading', item.fileid);
-                      downloadfile(item.fileid);
-                    })
-                )
-            );
-          }
+      $("#gettoken").click(function(e) {
+        pCloudSdk.oauth.initOauthToken({
+          client_id: client_id,
+          redirect_uri: "http://127.0.0.1:8080/oauth.html",
+          receiveToken: function(token, id) {
+            console.log(token);
+            access_token = token;
+            locationid = id || "1";
+
+            localStorage.setItem("pcloudToken", access_token);
+            localStorage.setItem("pcloudLocationId", locationid);
+            $("#havetoken").show();
+
+            client = pCloudSdk.createClient(access_token);
+          },
         });
       });
-    }
 
-
-    function el(id) {
-      return document.getElementById(id);
-    }
-
-    el('gettoken').addEventListener('click', function(e) {
-      pCloudSdk.oauth.initOauthToken({
-        client_id: 'p1WznE2dEPm',
-        redirect_uri: 'http://127.0.0.1:8080/oauth.html',
-        receiveToken: function(token, id) {
-          console.log(token);
-          access_token = token;
-          locationid = id || 1;
-          client = pCloudSdk.createClient(token);
-
-          listfiles();
-        }
+      $("#listfiles").click(function() {
+        $("#files").html("Root folder");
+        listfiles(0);
       });
-    }, false);
-
-  </script>
-</body>
+    </script>
+  </body>
 </html>
